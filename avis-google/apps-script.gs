@@ -1,11 +1,12 @@
 /* Avis du site Veltrixx — stockés dans cette feuille Google Sheets.
-   Installation : Extensions > Apps Script, colle tout ce code à la place de l'existant,
-   CHANGE le mot de passe admin juste en dessous, enregistre, puis
+   Installation : Extensions > Apps Script, colle tout ce code à la place de l'existant, enregistre, puis
    Déployer > Nouveau déploiement > Type : Application Web > Exécuter en tant que : Moi > Accès : Tout le monde.
-   Après une modification du code : Déployer > Gérer les déploiements > ✏️ > Version : Nouvelle version > Déployer.
+   Après une modification du code (pas besoin pour changer le mot de passe) : Déployer > Gérer les déploiements > ✏️ > Version : Nouvelle version > Déployer.
    Pour masquer un avis : panneau admin du site (veltrixx.eu/admin.html), ou « non » dans la colonne « afficher ». */
 
-const ADMIN_PASSWORD = 'CHANGE-MOI';          // ← mets ton mot de passe du panneau admin (garde-le pour toi)
+// Mot de passe du panneau admin : Paramètres du projet (roue ⚙ à gauche) > Propriétés du script >
+// propriété « ADMIN_PASSWORD » = ton mot de passe. Il n'est écrit nulle part ailleurs.
+const ADMIN_PASSWORD = PropertiesService.getScriptProperties().getProperty('ADMIN_PASSWORD') || 'CHANGE-MOI';
 const NOTIFY = 'contact@veltrixx.eu';         // mail à chaque nouvel avis ('' pour ne rien recevoir)
 
 // Colonnes : A date | B note | C nom | D profil | E lien | F avis | G email | H afficher | I id

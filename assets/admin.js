@@ -1,13 +1,14 @@
 /* Panneau admin des avis (admin.html). Le mot de passe est vérifié par le script Google, jamais stocké dans le site.
    Il reste en mémoire seulement pendant que l'onglet est ouvert. */
 (function () {
+  if (window.VX && VX.configured) return; // les comptes sont actifs : c'est admin-comptes.js qui gère
   var API = (typeof ME !== 'undefined' && ME.reviewsApi) || '';
   var $ = function (id) { return document.getElementById(id); };
   var login = $('admLogin'), board = $('admBoard'), pass = '', data = [], filter = 'all';
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function msg(el, type, text) { el.className = 'msg ' + type; el.textContent = text; el.hidden = !text; }
   var ERR = {
-    password: 'Mot de passe incorrect.', nopass: 'Choisis d’abord ton mot de passe dans le script Google (ligne ADMIN_PASSWORD), puis redéploie.',
+    password: 'Mot de passe incorrect.', nopass: 'Choisis d’abord ton mot de passe : script Google > Paramètres du projet > Propriétés du script > ADMIN_PASSWORD.',
     locked: 'Trop d’essais : réessaie dans 15 minutes.', notfound: 'Cet avis n’existe plus (actualise).', net: 'Connexion au script Google impossible.'
   };
   try { pass = sessionStorage.getItem('vx-admin') || ''; } catch (e) {}

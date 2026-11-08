@@ -11,7 +11,7 @@ const ME = {
   pp: "https://unavatar.io/x/veltrixx10?fallback=" + encodeURIComponent("https://pbs.twimg.com/profile_images/2116868082761101312/RHSWf1au_400x400.jpg"),
   email: "contact@veltrixx.eu",
   // Adresse de l'application Google (Apps Script) qui enregistre les avis. Vide = les avis arrivent par mail.
-  reviewsApi: "",
+  reviewsApi: "https://script.google.com/macros/s/AKfycbw_6ucXhna9G0TwGYLsUSDtdoCVHHVt1K2wjr4QNI6kM18RraAkXCyH4QvmhUvAmO8jbA/exec",
   discordUser: "veltrixxm10",
   // Pour que le bouton Discord ouvre directement ton profil, colle ton ID Discord ici
   // (Discord > Paramètres > Avancés > Mode développeur, puis clic droit sur ton profil > Copier l'identifiant).
@@ -24,6 +24,10 @@ const ME = {
 /* Chaînes suivies en direct sur la page Statistiques (Lyost Esport, Kurama et Zocian sont exclus).
    Les vues sont comptées à partir de ton arrivée sur chaque chaîne.
    Pour changer une date ou un compte, modifie aussi scripts/update-stats.mjs (même valeurs). */
+/* Comptes, avis et messagerie (Supabase). L'adresse et la clé « anon » sont publiques : elles sont faites pour être dans le site,
+   la sécurité est assurée par les règles de la base de données (supabase/schema.sql). Vide = comptes désactivés. */
+const SUPABASE = { url: "", anonKey: "" };
+
 const LIVE = {
   youtube: { akiira: "UCKWNLyvbV-vt6fM5q_E-igw", skyjump: "UCcifpfOD-8hCO9vbMoN41Nw", werex: "UCvQDDvqFF0A0ZQvdCW2irzQ", leo: "UCu7zXI2tMumbrjmBgJIfPBA" },
   tiktok:  { akiira: "akiiraftn", werex: "werexfn", skyjump: "skyjumpftnn" },

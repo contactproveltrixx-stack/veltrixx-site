@@ -7,7 +7,7 @@
      Le français est écrit directement dans les pages (attribut data-i18n).
      L'anglais est ici. Pour corriger une traduction, modifie la ligne correspondante. */
   var EN = {
-    'nav.home': 'Home', 'nav.edits': 'Edits', 'nav.collabs': 'Collabs', 'nav.stats': 'Stats', 'nav.reviews': 'Reviews', 'nav.lyost': 'Lyost Esport', 'nav.contact': 'Contact me',
+    'nav.home': 'Home', 'nav.edits': 'Edits', 'nav.collabs': 'Collabs', 'nav.stats': 'Stats', 'nav.reviews': 'Reviews', 'footer.privacy': 'Privacy', 'nav.lyost': 'Lyost Esport', 'nav.contact': 'Contact me',
     'footer.role': 'Video editor & Channel Manager',
 
     'home.status': 'Available for new projects',
@@ -61,7 +61,7 @@
     'ct.name': 'Name or handle', 'ct.email': 'Your email', 'ct.type': 'Type of request', 'ct.budget': 'Budget', 'ct.deadline': 'Deadline', 'ct.link': 'Link to your channel', 'ct.msg': 'Your message',
     'ct.t1': 'YouTube edit', 'ct.t2': 'Short / TikTok / Reel', 'ct.t3': 'Channel Manager', 'ct.t4': 'TikTok management', 'ct.t5': 'Collab / partnership', 'ct.t6': 'Other',
     'ct.b0': 'To discuss', 'ct.send': 'Send request', 'ct.direct': 'Email me directly', 'ct.social': 'My socials', 'ct.business': 'Business contact',
-    'rv.see': 'See reviews', 'rv.h1': 'The <span class="b">reviews</span>', 'rv.lead': 'What creators and teams say about working with me. Worked together? Leave yours!', 'rv.h': 'What they <span class="b">say</span>', 'rv.k': 'Reviews from creators I\'ve worked with', 'rv.btn': 'Leave a review', 'rv.boxh': 'Worked together already?',
+    'rv.see': 'See reviews', 'acc.h1': 'My <span class="b">account</span>', 'acc.lead': 'Sign in to chat with me live and leave your review.', 'msg.h1': 'My <span class="b">messages</span>', 'rv.h1': 'The <span class="b">reviews</span>', 'rv.lead': 'What creators and teams say about working with me. Worked together? Leave yours!', 'rv.h': 'What they <span class="b">say</span>', 'rv.k': 'Reviews from creators I\'ve worked with', 'rv.btn': 'Leave a review', 'rv.boxh': 'Worked together already?',
     'rv.dh': 'Leave a <span class="b">review</span>', 'rv.dl': 'Your review is published on the site once approved.', 'rv.dl2': 'Your review shows up on the site right away.', 'rv.rating': 'Your rating', 'rv.name': 'Name or handle', 'rv.role': 'Who are you? (optional)',
     'rv.link': 'Your channel (optional)', 'rv.email': 'Your email (optional, not published)', 'rv.text': 'Your review', 'rv.send': 'Send my review', 'rv.cancel': 'Cancel',
     'rv.phrole': 'e.g. YouTube creator, esports team…', 'rv.phtext': 'How was working together? Editing, deadlines, results…',
@@ -157,7 +157,7 @@
 
   var footer = document.createElement('footer');
   footer.innerHTML =
-    '<div class="wrap"><span>© ' + new Date().getFullYear() + ' Veltrixx · <span data-i18n="footer.role">Monteur vidéo & Channel Manager</span></span>' +
+    '<div class="wrap"><span>© ' + new Date().getFullYear() + ' Veltrixx · <span data-i18n="footer.role">Monteur vidéo & Channel Manager</span> · <a class="foot-link" href="confidentialite.html" data-i18n="footer.privacy">Confidentialité</a></span>' +
     '<div class="socials">' +
       '<a class="soc" href="' + ME.x + '" target="_blank" rel="noopener">' + I.x + 'X</a>' +
       '<a class="soc" href="' + ME.twitch + '" target="_blank" rel="noopener">' + I.twitch + 'Twitch</a>' +
@@ -475,7 +475,6 @@
 
   /* ================= Rendu des pages ================= */
   function renderAll() {
-    renderReviews();
     var feat = document.getElementById('featured');
     if (feat) { feat.innerHTML = ''; bestPerChannel().forEach(function (v) { feat.appendChild(videoCard(v, true)); }); }
 
@@ -546,88 +545,6 @@
   }
 
 
-  /* ================= Avis =================
-     Affichage : REVIEWS (assets/data.js). Envoi : fenêtre + FormSubmit vers ME.email (publié après validation). */
-  var LOCAL_REV = (typeof REVIEWS !== 'undefined' && REVIEWS) || [], REV = LOCAL_REV.slice();
-  var API = ME.reviewsApi || '';
-  function loadReviews() {
-    if (!API || !document.getElementById('reviews')) return;
-    fetch(API + (API.indexOf('?') < 0 ? '?' : '&') + 't=' + Date.now()).then(function (r) { return r.json(); }).then(function (list) {
-      if (Array.isArray(list)) { REV = LOCAL_REV.concat(list.filter(function (r) { return r && r.rating && r.name && r.text; })); renderReviews(); }
-    }).catch(function () {});
-  }
-  function starsHtml(n) { var h = ''; for (var i = 1; i <= 5; i++) h += '<span class="' + (i <= Math.round(n) ? 'on' : '') + '">★</span>'; return '<span class="stars" role="img" aria-label="' + u('rvStars').replace('{n}', n) + '">' + h + '</span>'; }
-  function renderReviews() {
-    var g = document.getElementById('reviews'), sum = document.getElementById('rvSum');
-    if (!g) return;
-    if (!REV.length) { g.innerHTML = '<p class="rv-empty">' + u('rvNone') + '</p>'; if (sum) sum.innerHTML = ''; return; }
-    var avg = REV.reduce(function (a, r) { return a + Number(r.rating || 0); }, 0) / REV.length;
-    if (sum) sum.innerHTML = '<b>' + avg.toFixed(1).replace('.', lang === 'en' ? '.' : ',') + '</b>' + starsHtml(avg) + '<span>' + u('rvCount').replace('{n}', REV.length) + '</span>';
-    g.innerHTML = REV.slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); }).map(function (r) {
-      var d = r.date ? new Date(r.date + 'T12:00:00').toLocaleDateString(loc(), { month: 'long', year: 'numeric' }) : '';
-      var who = '<b>' + esc(r.name) + '</b>' + (r.role ? '<small>' + esc(r.role) + '</small>' : '');
-      return '<figure class="rv">' + starsHtml(r.rating) + '<blockquote>' + esc(r.text) + '</blockquote><figcaption><span class="rv-av">' + esc(String(r.name).charAt(0).toUpperCase()) + '</span><span class="rv-who">' +
-        (/^https?:\/\//i.test(r.link || '') ? '<a href="' + esc(r.link) + '" target="_blank" rel="noopener nofollow">' + who + '</a>' : who) + '</span>' + (d ? '<time>' + esc(d) + '</time>' : '') + '</figcaption></figure>';
-    }).join('');
-  }
-  var rdlg = document.createElement('dialog'); rdlg.className = 'rv-dlg'; rdlg.setAttribute('aria-labelledby', 'rvT');
-  rdlg.innerHTML = '<form class="rv-form" id="reviewForm" novalidate>' +
-    '<div class="rv-top"><h2 class="h" id="rvT" data-i18n="rv.dh">Laisser un <span class="b">avis</span></h2><button class="rv-x" type="button" data-close aria-label="Fermer / Close">✕</button></div>' +
-    (API ? '<p class="rv-lead" data-i18n="rv.dl2">Ton avis s’affiche directement sur le site.</p>' : '<p class="rv-lead" data-i18n="rv.dl">Ton avis sera publié sur le site après validation.</p>') +
-    '<fieldset class="rv-rate"><legend data-i18n="rv.rating">Ta note</legend><div class="rv-pick">' +
-    [5, 4, 3, 2, 1].map(function (n) { return '<input type="radio" name="rating" id="rv' + n + '" value="' + n + '"><label for="rv' + n + '" title="' + n + '/5">★</label>'; }).join('') + '</div></fieldset>' +
-    '<div class="form">' +
-    '<div class="field"><label for="rv-name" data-i18n="rv.name">Nom ou pseudo</label><input id="rv-name" name="name" maxlength="40" autocomplete="nickname"></div>' +
-    '<div class="field"><label for="rv-role" data-i18n="rv.role">Qui es-tu ? (facultatif)</label><input id="rv-role" name="role" maxlength="50" data-i18n-ph="rv.phrole" placeholder="Ex. Créateur YouTube, structure esport…"></div>' +
-    '<div class="field"><label for="rv-link" data-i18n="rv.link">Ta chaîne (facultatif)</label><input id="rv-link" name="link" type="url" inputmode="url" placeholder="https://youtube.com/@…"></div>' +
-    '<div class="field"><label for="rv-email" data-i18n="rv.email">Ton email (facultatif, non publié)</label><input id="rv-email" name="email" type="email" autocomplete="email" placeholder="nom@exemple.com"></div>' +
-    '<div class="field full"><label for="rv-text" data-i18n="rv.text">Ton avis</label><textarea id="rv-text" name="text" maxlength="600" data-i18n-ph="rv.phtext" placeholder="Comment s’est passée la collaboration ? Montage, délais, résultats…"></textarea></div>' +
-    '<div class="hp" aria-hidden="true"><input name="_honey" tabindex="-1" autocomplete="off"></div>' +
-    '<div class="form-end"><p class="msg" id="rvMsg" role="status" hidden></p><span style="display:flex;gap:10px;margin-left:auto"><button class="btn btn-ghost" type="button" data-close data-i18n="rv.cancel">Annuler</button>' +
-    '<button class="btn btn-gold" type="submit"><span data-i18n="rv.send">Envoyer mon avis</span> ★</button></span></div>' +
-    '</div></form>';
-  document.body.appendChild(rdlg);
-  var rform = rdlg.querySelector('form'), rmsg = rdlg.querySelector('#rvMsg'), rbtn = rform.querySelector('button[type=submit]');
-  function openReview() { rmsg.hidden = true; if (rdlg.showModal) rdlg.showModal(); else rdlg.setAttribute('open', ''); }
-  document.addEventListener('click', function (e) { if (e.target.closest('.js-review')) openReview(); });
-  rdlg.addEventListener('click', function (e) { if (e.target === rdlg || e.target.closest('[data-close]')) rdlg.close(); });
-  if (location.hash === '#laisser-un-avis') setTimeout(openReview, 300);
-  rform.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var d = Object.fromEntries(new FormData(rform).entries());
-    if (d._honey) return;
-    function show(t, x) { rmsg.className = 'msg ' + t; rmsg.textContent = x; rmsg.hidden = false; }
-    if (!d.rating || !d.name.trim() || d.text.trim().length < 5) { show('err', u('rvNeed')); return; }
-    var today = new Date().toISOString().slice(0, 10);
-    var entry = { name: d.name.trim(), role: d.role.trim() || undefined, rating: Number(d.rating), text: d.text.trim(), date: today, link: d.link.trim() || undefined };
-    var label = rbtn.innerHTML; rbtn.disabled = true; rbtn.textContent = u('sending');
-    if (API) {
-      // text/plain : pas de requête préalable, accepté par Google Apps Script
-      fetch(API, { method: 'POST', body: JSON.stringify({ rating: entry.rating, name: entry.name, role: d.role, link: d.link, email: d.email, text: entry.text, _honey: d._honey }) })
-        .then(function (r) { return r.json(); }).then(function (res) {
-          if (res.ok) {
-            show('ok', u('rvOkLive')); rform.reset();
-            REV.push(entry); renderReviews(); setTimeout(loadReviews, 1500);
-            setTimeout(function () { if (rdlg.open) rdlg.close(); var g = document.getElementById('reviews'); if (g) g.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 1800);
-          } else show('err', res.error === 'wait' ? u('rvWait') : u('rvNeed'));
-        }).catch(function () { show('err', u('err') + ME.email); })
-        .finally(function () { rbtn.disabled = false; rbtn.innerHTML = label; });
-      return;
-    }
-    fetch('https://formsubmit.co/ajax/' + ME.email, {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        Note: '★'.repeat(entry.rating) + '☆'.repeat(5 - entry.rating) + ' (' + entry.rating + '/5)', Nom: entry.name, Profil: d.role || '-', Chaine: d.link || '-', Email: d.email || '-', Avis: entry.text,
-        'A coller dans REVIEWS (assets/data.js) pour publier': JSON.stringify(entry) + ',',
-        _subject: '[Site Veltrixx] Nouvel avis ' + entry.rating + '/5 — ' + entry.name, _replyto: d.email || undefined, _template: 'table', _captcha: 'false'
-      })
-    }).then(function (r) { return r.json(); }).then(function (res) {
-      if (String(res.success) === 'true') { show('ok', u('rvOk')); rform.reset(); }
-      else throw new Error(res.message || 'error');
-    }).catch(function () { show('err', u('err') + ME.email); })
-      .finally(function () { rbtn.disabled = false; rbtn.innerHTML = label; });
-  });
-
   /* ================= Langue ================= */
   function collect() {
     document.querySelectorAll('[data-i18n]').forEach(function (el) { if (!el.dataset.fr) el.dataset.fr = el.innerHTML; });
@@ -643,11 +560,13 @@
     document.querySelectorAll('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'); });
     var tEl = document.querySelector('title'); if (tEl) { if (!tEl.dataset.fr) tEl.dataset.fr = tEl.textContent; tEl.textContent = l === 'en' && tEl.dataset.en ? tEl.dataset.en : tEl.dataset.fr; }
     renderAll();
+    document.dispatchEvent(new CustomEvent('vx:lang', { detail: l }));
   }
   document.querySelectorAll('[data-lang]').forEach(function (b) { b.addEventListener('click', function () { applyLang(b.dataset.lang); }); });
+  // Outils partagés avec les autres scripts (comptes, avis, messagerie)
+  window.VXS = { lang: function () { return lang; }, loc: loc, esc: esc, nf: nf, say: function (m) { say(m); }, copy: copy, avatar: avatar };
   STATS = window.STATS_SEED || null;
   applyLang(lang);
-  loadReviews();
   loadStats(true);
   setInterval(function () { loadStats(false); }, 60 * 1000);
 
