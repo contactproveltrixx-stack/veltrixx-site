@@ -19,6 +19,10 @@ jobs:
   update:
     runs-on: self-hosted
     timeout-minutes: 15
+    # Windows bloque les scripts PowerShell par défaut (npm.ps1) : on passe par l'invite de commandes.
+    defaults:
+      run:
+        shell: cmd
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
