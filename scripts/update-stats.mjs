@@ -22,6 +22,14 @@ const MAX_LIVE = 6000;
 // node scripts/update-stats.mjs youtube  -> seulement YouTube (robot GitHub, dans le cloud)
 // node scripts/update-stats.mjs tiktok   -> seulement TikTok (robot installé sur le PC : TikTok bloque les serveurs)
 const ONLY = process.argv[2] || 'all';
+// Journal lisible après coup (sur le PC : C:\actions-runner\_work\veltrixx-site\veltrixx-site\robot.log)
+{
+  const { appendFileSync } = await import('node:fs');
+  const log = console.log;
+  console.log = (...a) => { log(...a); try { appendFileSync('robot.log', new Date().toISOString() + ' ' + a.map(x => typeof x === 'string' ? x : JSON.stringify(x)).join(' ') + '\n'); } catch {} };
+  process.on('uncaughtException', e => { console.log('ERREUR :', e.stack || e.message); process.exit(1); });
+  process.on('unhandledRejection', e => { console.log('ERREUR :', (e && (e.stack || e.message)) || e); process.exit(1); });
+}
 const now = new Date().toISOString();
 const ts = d => Math.floor(Date.parse(d + 'T00:00:00Z') / 1000);
 let stats;
@@ -93,8 +101,15 @@ async function tiktokAll() {
   catch { console.log('Playwright absent : TikTok ignoré.'); return null; }
   // Sur le PC Windows, on utilise Microsoft Edge (déjà installé) ; sinon le Chromium de Playwright.
   let browser;
-  if (process.platform === 'win32') browser = await chromium.launch({ channel: 'msedge' }).catch(() => null);
-  if (!browser) browser = await chromium.launch();
+  if (process.platform === 'win32') browser = await chromium.launch({ channel: 'msedge' }).catch(e => { console.log('Edge indisponible :', e.message.split('\n')[0]); return null; });
+  if (!browser) browser = await chromium.launch().catch(e => { console.log('Chromium absent :', e.message.split('\n')[0]); return null; });
+  if (!browser) {
+    // Première fois sur ce PC : on télécharge le navigateur de Playwright (une seule fois, ~150 Mo).
+    console.log('Téléchargement du navigateur…');
+    const { execSync } = await import('node:child_process');
+    execSync('npx playwright install chromium', { stdio: 'inherit', env: { ...process.env, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '' } });
+    browser = await chromium.launch();
+  }
   const opts = { locale: 'fr-FR', viewport: { width: 1280, height: 900 } };
   if (process.platform !== 'win32') opts.userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36';
   const ctx = await browser.newContext(opts);
@@ -129,7 +144,7 @@ async function tiktokAll() {
   await browser.close();
   return out;
 }
-const tk = ONLY === 'youtube' ? (console.log('TikTok : ignoré (robot YouTube).'), null) : await tiktokAll();
+const tk = ONLY === 'youtube' ? (console.log('TikTok : ignoré (robot YouTube).'), null) : await tiktokAll().catch(e => { console.log('TikTok : erreur', e.stack || e.message); return null; });
 if (tk && Object.keys(tk).length) {
   const last = stats.tiktok.live.at(-1) || { views: {}, followers: {}, likes: {} };
   const views = { ...last.views }, followers = { ...last.followers }, likes = { ...last.likes };
