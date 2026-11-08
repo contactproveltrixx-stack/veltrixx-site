@@ -101,9 +101,9 @@ async function tiktokAll() {
   catch { console.log('Playwright absent : TikTok ignoré.'); return null; }
   // Sur le PC Windows, on utilise Microsoft Edge (déjà installé) ; sinon le Chromium de Playwright.
   let browser;
-  // Sur le PC : le vrai Google Chrome (mode invisible récent, que TikTok accepte mieux), sinon Edge.
+  // Sur le PC : ton Google Chrome (en mode invisible). Edge n'est jamais utilisé.
   const args = ['--disable-blink-features=AutomationControlled'];
-  if (process.platform === 'win32') for (const channel of ['chrome', 'msedge']) {
+  if (process.platform === 'win32') for (const channel of ['chrome']) {
     if (browser) break;
     browser = await chromium.launch({ channel, args }).catch(e => { console.log(channel + ' indisponible :', e.message.split('\n')[0]); return null; });
     if (browser) console.log('Navigateur :', channel);
