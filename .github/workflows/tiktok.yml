@@ -1,0 +1,36 @@
+# Robot TikTok : tourne sur ton PC (runner « self-hosted »), toutes les 20 minutes quand le PC est allumé.
+# Il ouvre les profils publics dans Microsoft Edge (invisible), additionne les vues des vidéos publiées
+# depuis ton arrivée, puis enregistre les chiffres sur GitHub. Rien d'autre n'est lancé sur le PC.
+name: Stats TikTok (PC)
+
+on:
+  schedule:
+    - cron: "5,25,45 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats-tiktok
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: self-hosted
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Préparer le navigateur
+        run: npm install --no-save --no-audit --no-fund playwright@1.48.2
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      - name: Relever les chiffres TikTok
+        run: node scripts/update-stats.mjs tiktok
+      - name: Enregistrer s'il y a du nouveau
+        run: node scripts/save-stats.mjs tiktok
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

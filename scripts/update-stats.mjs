@@ -19,6 +19,9 @@ const FILE = new URL('../data/stats.json', import.meta.url);
 const SEED = new URL('../assets/stats-seed.js', import.meta.url);
 const MAX_LIVE = 6000;
 
+// node scripts/update-stats.mjs youtube  -> seulement YouTube (robot GitHub, dans le cloud)
+// node scripts/update-stats.mjs tiktok   -> seulement TikTok (robot installé sur le PC : TikTok bloque les serveurs)
+const ONLY = process.argv[2] || 'all';
 const now = new Date().toISOString();
 const ts = d => Math.floor(Date.parse(d + 'T00:00:00Z') / 1000);
 let stats;
@@ -38,7 +41,8 @@ async function yt(path) {
   if (!res.ok) throw new Error(j.error?.message || res.status);
   return j;
 }
-if (!key) console.log('YT_API_KEY absent : YouTube ignoré.');
+if (ONLY === 'tiktok') console.log('YouTube : ignoré (robot TikTok).');
+else if (!key) console.log('YT_API_KEY absent : YouTube ignoré.');
 else {
   try {
     const ch = await yt('channels?part=statistics,contentDetails&id=' + Object.values(YOUTUBE).join(','));
@@ -87,8 +91,13 @@ async function tiktokAll() {
   let chromium;
   try { ({ chromium } = await import('playwright')); }
   catch { console.log('Playwright absent : TikTok ignoré.'); return null; }
-  const browser = await chromium.launch();
-  const ctx = await browser.newContext({ locale: 'fr-FR', userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36', viewport: { width: 1280, height: 900 } });
+  // Sur le PC Windows, on utilise Microsoft Edge (déjà installé) ; sinon le Chromium de Playwright.
+  let browser;
+  if (process.platform === 'win32') browser = await chromium.launch({ channel: 'msedge' }).catch(() => null);
+  if (!browser) browser = await chromium.launch();
+  const opts = { locale: 'fr-FR', viewport: { width: 1280, height: 900 } };
+  if (process.platform !== 'win32') opts.userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36';
+  const ctx = await browser.newContext(opts);
   const out = {};
   for (const [name, user] of Object.entries(TIKTOK)) {
     const page = await ctx.newPage();
@@ -120,7 +129,7 @@ async function tiktokAll() {
   await browser.close();
   return out;
 }
-const tk = await tiktokAll();
+const tk = ONLY === 'youtube' ? (console.log('TikTok : ignoré (robot YouTube).'), null) : await tiktokAll();
 if (tk && Object.keys(tk).length) {
   const last = stats.tiktok.live.at(-1) || { views: {}, followers: {}, likes: {} };
   const views = { ...last.views }, followers = { ...last.followers }, likes = { ...last.likes };

@@ -64,8 +64,8 @@
     'ct.phname': 'e.g. Leo', 'ct.phmsg': 'Type of video, length, references, publishing date…', 'ct.phdeadline': 'e.g. in 1 week'
   };
   var UI = {
-    fr: { views: 'vues', onYt: 'Voir sur YouTube', close: 'Fermer', copied: 'Copié !', discordCopied: 'Pseudo Discord copié : ', more: 'Voir la page', sending: 'Envoi…', ok: 'Merci ! Ta demande est bien partie, je te réponds vite.', err: 'L’envoi n’a pas marché. Écris-moi directement à ', required: 'Remplis ton nom, ton email et ton message.', badEmail: 'Ton adresse email ne semble pas valide.', all: 'Tout', video: 'vidéo', videos: 'vidéos', channel: 'Voir la chaîne', lastData: 'Dernière donnée', newData: 'Nouvelle donnée reçue', growing: 'Le graphique se remplit à chaque nouvelle donnée.', total: 'Total', likesW: 'J’aime', followersW: 'abonnés', viewsSince: 'vues depuis mon arrivée', subsNow: 'abonnés', likesProfile: 'J’aime sur les profils', genBy: 'Qui a fait le plus de vues', since: 'depuis le premier relevé', justNow: 'à l’instant', minAgo: 'il y a {n} min', hAgo: 'il y a {n} h', dAgo: 'il y a {n} j' },
-    en: { views: 'views', onYt: 'Watch on YouTube', close: 'Close', copied: 'Copied!', discordCopied: 'Discord username copied: ', more: 'Open page', sending: 'Sending…', ok: 'Thanks! Your request was sent, I’ll get back to you soon.', err: 'Sending failed. Email me directly at ', required: 'Please fill in your name, email and message.', badEmail: 'That email address doesn’t look valid.', all: 'All', video: 'video', videos: 'videos', channel: 'Open channel', lastData: 'Latest data', newData: 'New data received', growing: 'The chart fills in with every new data point.', total: 'Total', likesW: 'likes', followersW: 'followers', viewsSince: 'views since I joined', subsNow: 'subscribers', likesProfile: 'profile likes', genBy: 'Who brought in the most views', since: 'since the first reading', justNow: 'just now', minAgo: '{n} min ago', hAgo: '{n} h ago', dAgo: '{n} d ago' }
+    fr: { views: 'vues', onYt: 'Voir sur YouTube', close: 'Fermer', copied: 'Copié !', discordCopied: 'Pseudo Discord copié : ', more: 'Voir la page', sending: 'Envoi…', ok: 'Merci ! Ta demande est bien partie, je te réponds vite.', err: 'L’envoi n’a pas marché. Écris-moi directement à ', required: 'Remplis ton nom, ton email et ton message.', badEmail: 'Ton adresse email ne semble pas valide.', all: 'Tout', video: 'vidéo', videos: 'vidéos', channel: 'Voir la chaîne', lastData: 'Dernière donnée', newData: 'Nouvelle donnée reçue', growing: 'Le graphique se remplit à chaque nouvelle donnée.', total: 'Total', likesW: 'J’aime', followersW: 'abonnés', viewsSince: 'vues depuis mon arrivée', subsNow: 'abonnés', subsGained: 'abonnés gagnés depuis mon arrivée', likesProfile: 'J’aime sur les profils', genBy: 'Qui a fait le plus de vues', since: 'depuis le premier relevé', justNow: 'à l’instant', minAgo: 'il y a {n} min', hAgo: 'il y a {n} h', dAgo: 'il y a {n} j' },
+    en: { views: 'views', onYt: 'Watch on YouTube', close: 'Close', copied: 'Copied!', discordCopied: 'Discord username copied: ', more: 'Open page', sending: 'Sending…', ok: 'Thanks! Your request was sent, I’ll get back to you soon.', err: 'Sending failed. Email me directly at ', required: 'Please fill in your name, email and message.', badEmail: 'That email address doesn’t look valid.', all: 'All', video: 'video', videos: 'videos', channel: 'Open channel', lastData: 'Latest data', newData: 'New data received', growing: 'The chart fills in with every new data point.', total: 'Total', likesW: 'likes', followersW: 'followers', viewsSince: 'views since I joined', subsNow: 'subscribers', subsGained: 'subscribers gained since I joined', likesProfile: 'profile likes', genBy: 'Who brought in the most views', since: 'since the first reading', justNow: 'just now', minAgo: '{n} min ago', hAgo: '{n} h ago', dAgo: '{n} d ago' }
   };
 
   var lang = 'fr';
@@ -264,8 +264,44 @@
     (block.live || []).forEach(function (p) { var t = new Date(p.t).getTime(); if (t > lastT) { pts.push({ t: t, v: sumObj(p.views) }); lastT = t; } });
     return pts;
   }
+  /* Abonnés / J'aime.
+     Sans historique : total actuel des profils (relevés du robot).
+     Avec historique (assets/history.js, chiffres exacts de YouTube Studio) : abonnés GAGNÉS depuis mon arrivée
+     sur chaque chaîne, puis les relevés du robot raccordés à la dernière valeur exacte. */
+  function hasHist(net, field) { var h = ((window.STATS_HISTORY || {})[net] || {})[field] || {}; for (var c in h) if (h[c] && h[c].length) return true; return false; }
   function liveSeries(block, field) {
-    return (block.live || []).map(function (p) { return { t: new Date(p.t).getTime(), v: sumObj(p[field] || {}) }; });
+    var net = block === STATS.youtube ? 'youtube' : 'tiktok';
+    var hist = hasHist(net, field) ? window.STATS_HISTORY[net][field] : null;
+    var ev = [], base = {}, off = {}, histEnd = {};
+    function day(s) { return new Date(String(s).length === 10 ? s + 'T23:00:00Z' : s).getTime(); }
+    if (hist) for (var ch in hist) {
+      var h = hist[ch]; if (!h || !h.length) continue;
+      base[ch] = Number(h[0][1]);
+      h.forEach(function (r) { ev.push({ t: day(r[0]), ch: ch, v: Number(r[1]) }); });
+      histEnd[ch] = { t: day(h[h.length - 1][0]), v: Number(h[h.length - 1][1]) };
+    }
+    (block.live || []).forEach(function (p) {
+      var t = new Date(p.t).getTime(), o = p[field] || {};
+      for (var c in o) {
+        var v = Number(o[c]);
+        if (hist) {
+          if (!(c in base)) continue;
+          if (t <= histEnd[c].t) continue;
+          if (!(c in off)) off[c] = histEnd[c].v - v; // la plateforme arrondit : on raccorde au chiffre exact
+          v += off[c];
+        }
+        ev.push({ t: t, ch: c, v: v });
+      }
+    });
+    ev.sort(function (a, b) { return a.t - b.t; });
+    var cur = {}, pts = [];
+    ev.forEach(function (e) {
+      cur[e.ch] = hist ? e.v - base[e.ch] : e.v;
+      var v = sumObj(cur), last = pts[pts.length - 1];
+      if (last && last.t === e.t) last.v = v; else pts.push({ t: e.t, v: v });
+    });
+    pts.byCh = cur; pts.gain = !!hist;
+    return pts;
   }
   function fmtGen(n) { // ex. 5,9 M — une décimale, comme demandé
     n = Number(n);
@@ -375,6 +411,8 @@
     var gen = genTotal();
     var prevGen = shownGen != null ? shownGen : ((py ? sumObj(py.views) : (ly ? sumObj(ly.views) : 0)) + (pt ? sumObj(pt.views) : (lt ? sumObj(lt.views) : 0)));
     var plus = gen - prevGen;
+    var ytS = ytField === 'views' ? viewsSeries(ytb) : liveSeries(ytb, 'subs');
+    var ttS = ttField === 'views' ? viewsSeries(ttb) : liveSeries(ttb, ttField);
     document.querySelectorAll('[data-live]').forEach(function (e) {
       var k = e.dataset.live;
       if (k === 'gen') e.textContent = fmtGen(gen);
@@ -383,18 +421,18 @@
       if (k === 'genPop') e.innerHTML = genDetail();
       if (k === 'yt' && ly) e.textContent = fmtGen(sumObj(ly.views));
       if (k === 'tt' && lt) e.textContent = fmtGen(sumObj(lt.views));
-      if (k === 'ytFull' && ly) e.textContent = nf(sumObj(ly[ytField]));
-      if (k === 'ttFull' && lt) e.textContent = nf(sumObj(lt[ttField]));
-      if (k === 'ytLabel') e.textContent = ytField === 'views' ? u('viewsSince') : u('subsNow');
-      if (k === 'ttLabel') e.textContent = ttField === 'views' ? u('viewsSince') : ttField === 'followers' ? u('followersW') : u('likesProfile');
+      if (k === 'ytFull' && ly) e.textContent = ytS.gain ? '+' + nf(ytS[ytS.length - 1].v) : nf(sumObj(ly[ytField]));
+      if (k === 'ttFull' && lt) e.textContent = ttS.gain ? '+' + nf(ttS[ttS.length - 1].v) : nf(sumObj(lt[ttField]));
+      if (k === 'ytLabel') e.textContent = ytField === 'views' ? u('viewsSince') : (ytS.gain ? u('subsGained') : u('subsNow'));
+      if (k === 'ttLabel') e.textContent = ttField === 'views' ? u('viewsSince') : (ttS.gain ? u('subsGained') : ttField === 'followers' ? u('followersW') : u('likesProfile'));
       if (k === 'ytAgo' && ly) e.textContent = u('lastData') + ' · ' + ago(ly.t);
       if (k === 'ttAgo' && lt) e.textContent = u('lastData') + ' · ' + ago(lt.t);
     });
     shownGen = gen;
-    chart(document.getElementById('ytChart'), ytField === 'views' ? viewsSeries(ytb) : liveSeries(ytb, 'subs'), { color: '#3CCBFF', label: 'YouTube', zero: ytField === 'views' });
-    chart(document.getElementById('ttChart'), ttField === 'views' ? viewsSeries(ttb) : liveSeries(ttb, ttField), { color: '#9B7BFF', label: 'TikTok', zero: ttField === 'views' });
-    if (ly) breakdown(document.getElementById('ytBreak'), ly[ytField]);
-    if (lt) breakdown(document.getElementById('ttBreak'), lt[ttField]);
+    chart(document.getElementById('ytChart'), ytS, { color: '#3CCBFF', label: 'YouTube', zero: ytField === 'views' || ytS.gain });
+    chart(document.getElementById('ttChart'), ttS, { color: '#9B7BFF', label: 'TikTok', zero: ttField === 'views' || ttS.gain });
+    if (ly) breakdown(document.getElementById('ytBreak'), ytS.gain ? ytS.byCh : ly[ytField]);
+    if (lt) breakdown(document.getElementById('ttBreak'), ttS.gain ? ttS.byCh : lt[ttField]);
   }
   function loadStats(first) {
     if (!document.querySelector('[data-live]')) return;
