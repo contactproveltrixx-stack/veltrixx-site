@@ -14,6 +14,7 @@
   };
   function t(k) { return (T[S.lang()] || T.fr)[k]; }
   function esc(s) { return S.esc(s == null ? '' : s); }
+  var TOUCH = window.matchMedia && matchMedia('(pointer: coarse)').matches;
   var me = null, thread = null, msgs = [], threads = [], chan = null, mobileList = true;
   var ME_PROFILE = { display_name: 'Veltrixx', avatar_url: (typeof ME !== 'undefined' && ME.pp) || null };
 
@@ -123,7 +124,8 @@
     });
   });
   root.addEventListener('keydown', function (e) {
-    if (e.target.matches('.chat-form textarea') && e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); e.target.form.requestSubmit(); }
+    // Ordinateur : Entrée envoie. Téléphone : Entrée va à la ligne, on envoie avec le bouton.
+    if (e.target.matches('.chat-form textarea') && e.key === 'Enter' && !e.shiftKey && !e.isComposing && !TOUCH) { e.preventDefault(); e.target.form.requestSubmit(); }
   });
   root.addEventListener('input', function (e) {
     if (e.target.matches('.chat-form textarea')) { e.target.style.height = 'auto'; e.target.style.height = Math.min(e.target.scrollHeight, 160) + 'px'; }

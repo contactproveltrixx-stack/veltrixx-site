@@ -28,7 +28,7 @@
   function renderMenu() {
     if (!box) return;
     if (VX.configured && !VX.loaded) { box.innerHTML = ''; return; }
-    if (!VX.user) { box.innerHTML = '<a class="btn btn-ghost btn-sm acct-login" href="compte.html">' + t('login') + '</a>'; return; }
+    if (!VX.user) { box.innerHTML = '<a class="btn btn-ghost btn-sm acct-login" href="compte.html" aria-label="' + t('login') + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5z"/></svg><span>' + t('login') + '</span></a>'; return; }
     var badge = VX.unread ? '<span class="acct-badge">' + (VX.unread > 9 ? '9+' : VX.unread) + '</span>' : '';
     box.innerHTML = '<button class="acct-btn" type="button" aria-haspopup="true" aria-expanded="false">' + pp(VX.profile) + '<span class="acct-name">' + S.esc(VX.profile.display_name) + '</span>' + badge + '</button>' +
       '<div class="acct-menu" hidden>' +

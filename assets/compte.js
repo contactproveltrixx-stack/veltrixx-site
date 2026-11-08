@@ -90,8 +90,8 @@
         '<div class="acc-or"><span>' + t('or') + '</span></div>' +
         '<form class="acc-form" novalidate>' +
           (mode === 'signup' ? '<div class="field"><label for="a-name">' + t('name') + '</label><input id="a-name" name="name" maxlength="40" autocomplete="nickname" required></div>' : '') +
-          '<div class="field"><label for="a-email">' + t('email') + '</label><input id="a-email" name="email" type="email" autocomplete="email" required></div>' +
-          '<div class="field"><label for="a-pass">' + (mode === 'signup' ? t('pass8') : t('pass')) + '</label><input id="a-pass" name="pass" type="password" minlength="8" autocomplete="' + (mode === 'signup' ? 'new-password' : 'current-password') + '" required></div>' +
+          '<div class="field"><label for="a-email">' + t('email') + '</label><input id="a-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" required></div>' +
+          '<div class="field"><label for="a-pass">' + (mode === 'signup' ? t('pass8') : t('pass')) + '</label><input id="a-pass" name="pass" type="password" minlength="8" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="' + (mode === 'signup' ? 'new-password' : 'current-password') + '" required></div>' +
           '<button class="btn btn-blue" type="submit">' + (mode === 'signup' ? t('signup') : t('login')) + '</button>' +
           (mode === 'login' ? '<button class="acc-link" type="button" data-mode="forgot">' + t('forgot') + '</button>' : '<p class="acc-legal">' + t('legal') + '</p>') +
           '<p class="msg" role="status" hidden></p>' +
@@ -100,13 +100,13 @@
   }
   function renderForgot() {
     root.innerHTML = '<div class="panel acc-card"><h2 class="acc-h">' + t('forgot') + '</h2><form class="acc-form" data-form="forgot" novalidate>' +
-      '<div class="field"><label for="a-email">' + t('email') + '</label><input id="a-email" name="email" type="email" autocomplete="email" required></div>' +
+      '<div class="field"><label for="a-email">' + t('email') + '</label><input id="a-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" required></div>' +
       '<button class="btn btn-blue" type="submit">' + t('sendReset') + '</button><button class="acc-link" type="button" data-mode="login">' + t('back') + '</button>' +
       '<p class="msg" role="status" hidden></p></form></div>';
   }
   function renderRecovery() {
     root.innerHTML = '<div class="panel acc-card"><h2 class="acc-h">' + t('newPass') + '</h2><form class="acc-form" data-form="newpass" novalidate>' +
-      '<div class="field"><label for="a-pass">' + t('pass8') + '</label><input id="a-pass" name="pass" type="password" minlength="8" autocomplete="new-password" required></div>' +
+      '<div class="field"><label for="a-pass">' + t('pass8') + '</label><input id="a-pass" name="pass" type="password" minlength="8" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="new-password" required></div>' +
       '<button class="btn btn-blue" type="submit">' + t('savePass') + '</button><p class="msg" role="status" hidden></p></form></div>';
   }
   function renderProfile() {
@@ -125,7 +125,7 @@
         '<div class="field"><label for="p-av">' + t('avatar') + '</label><input id="p-av" name="avatar" type="url" placeholder="https://…" value="' + esc(p.avatar_url || '') + '"></div>' +
         '<button class="btn btn-ghost" type="submit">' + t('save') + '</button><p class="msg" role="status" hidden></p></form>' +
       (prov === 'email' ? '<form class="panel acc-card acc-form" data-form="newpass" novalidate><h3 class="acc-h3">' + t('security') + '</h3>' +
-        '<div class="field"><label for="a-pass">' + t('changePass') + '</label><input id="a-pass" name="pass" type="password" minlength="8" autocomplete="new-password" placeholder="' + t('pass8') + '"></div>' +
+        '<div class="field"><label for="a-pass">' + t('changePass') + '</label><input id="a-pass" name="pass" type="password" minlength="8" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="new-password" placeholder="' + t('pass8') + '"></div>' +
         '<button class="btn btn-ghost" type="submit">' + t('savePass') + '</button><p class="msg" role="status" hidden></p></form>' : '') +
       '<form class="panel acc-card acc-form acc-danger" data-form="delete" novalidate><h3 class="acc-h3">' + t('danger') + '</h3><p class="acc-sub">' + t('dangerTxt') + '</p>' +
         '<div class="field"><input name="confirm" autocomplete="off" placeholder="SUPPRIMER"></div>' +
