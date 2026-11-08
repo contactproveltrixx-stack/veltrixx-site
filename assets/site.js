@@ -7,7 +7,7 @@
      Le français est écrit directement dans les pages (attribut data-i18n).
      L'anglais est ici. Pour corriger une traduction, modifie la ligne correspondante. */
   var EN = {
-    'nav.home': 'Home', 'nav.edits': 'Edits', 'nav.collabs': 'Collabs', 'nav.stats': 'Stats', 'nav.lyost': 'Lyost Esport', 'nav.contact': 'Contact me',
+    'nav.home': 'Home', 'nav.edits': 'Edits', 'nav.collabs': 'Collabs', 'nav.stats': 'Stats', 'nav.reviews': 'Reviews', 'nav.lyost': 'Lyost Esport', 'nav.contact': 'Contact me',
     'footer.role': 'Video editor & Channel Manager',
 
     'home.status': 'Available for new projects',
@@ -61,7 +61,7 @@
     'ct.name': 'Name or handle', 'ct.email': 'Your email', 'ct.type': 'Type of request', 'ct.budget': 'Budget', 'ct.deadline': 'Deadline', 'ct.link': 'Link to your channel', 'ct.msg': 'Your message',
     'ct.t1': 'YouTube edit', 'ct.t2': 'Short / TikTok / Reel', 'ct.t3': 'Channel Manager', 'ct.t4': 'TikTok management', 'ct.t5': 'Collab / partnership', 'ct.t6': 'Other',
     'ct.b0': 'To discuss', 'ct.send': 'Send request', 'ct.direct': 'Email me directly', 'ct.social': 'My socials', 'ct.business': 'Business contact',
-    'rv.h': 'What they <span class="b">say</span>', 'rv.k': 'Reviews from creators I\'ve worked with', 'rv.btn': 'Leave a review', 'rv.boxh': 'Worked together already?',
+    'rv.see': 'See reviews', 'rv.h1': 'The <span class="b">reviews</span>', 'rv.lead': 'What creators and teams say about working with me. Worked together? Leave yours!', 'rv.h': 'What they <span class="b">say</span>', 'rv.k': 'Reviews from creators I\'ve worked with', 'rv.btn': 'Leave a review', 'rv.boxh': 'Worked together already?',
     'rv.dh': 'Leave a <span class="b">review</span>', 'rv.dl': 'Your review is published on the site once approved.', 'rv.dl2': 'Your review shows up on the site right away.', 'rv.rating': 'Your rating', 'rv.name': 'Name or handle', 'rv.role': 'Who are you? (optional)',
     'rv.link': 'Your channel (optional)', 'rv.email': 'Your email (optional, not published)', 'rv.text': 'Your review', 'rv.send': 'Send my review', 'rv.cancel': 'Cancel',
     'rv.phrole': 'e.g. YouTube creator, esports team…', 'rv.phtext': 'How was working together? Editing, deadlines, results…',
@@ -135,6 +135,7 @@
     ['edits', 'montages.html', 'nav.edits', 'Montages'],
     ['collabs', 'collaborations.html', 'nav.collabs', 'Collaborations'],
     ['stats', 'statistiques.html', 'nav.stats', 'Statistiques'],
+    ['reviews', 'avis.html', 'nav.reviews', 'Avis'],
     ['lyost', 'lyost.html', 'nav.lyost', 'Lyost Esport']
   ];
   var header = document.createElement('header'); header.className = 'top';
