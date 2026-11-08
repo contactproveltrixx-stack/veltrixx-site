@@ -10,6 +10,8 @@ const ME = {
   // Si le service ne répond pas, l'ancienne photo s'affiche, puis le V.
   pp: "https://unavatar.io/x/veltrixx10?fallback=" + encodeURIComponent("https://pbs.twimg.com/profile_images/2116868082761101312/RHSWf1au_400x400.jpg"),
   email: "contact@veltrixx.eu",
+  // Adresse de l'application Google (Apps Script) qui enregistre les avis. Vide = les avis arrivent par mail.
+  reviewsApi: "",
   discordUser: "veltrixxm10",
   // Pour que le bouton Discord ouvre directement ton profil, colle ton ID Discord ici
   // (Discord > Paramètres > Avancés > Mode développeur, puis clic droit sur ton profil > Copier l'identifiant).
@@ -70,6 +72,12 @@ const CLIENTS = ["podasai", "lyost", "kurama", "akiira", "skyjump", "werex", "la
    pp : photo de profil. Dépose l'image dans assets/pp/ avec le nom indiqué (jpg, carrée).
         Tant qu'elle n'est pas là, la première lettre s'affiche à la place.
    role / desc : [français, anglais]. Les liens viennent de leurs profils officiels. */
+/* Avis : ceux écrits par les clients sur le site sont dans la feuille Google « Avis site Veltrixx » (ME.reviewsApi).
+   Tu peux aussi en ajouter ici à la main, ils s'affichent en plus.
+   Format : { name: "Pseudo", role: "Créateur YouTube", rating: 5, text: "…", date: "2026-11-08", link: "https://…" (facultatif) } */
+const REVIEWS = [
+];
+
 const CREATORS = {
   lyost: {
     name: "Lyost Esport", gold: true, page: "lyost.html", pp: "assets/pp/lyost.jpg",
