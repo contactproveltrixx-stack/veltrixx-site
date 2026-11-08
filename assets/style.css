@@ -406,3 +406,7 @@ button.bar:focus-visible{outline:2px solid var(--cyan)}
 .motto-line{white-space:nowrap;font:italic 900 clamp(48px,9vw,120px)/1 var(--head);text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(244,193,74,.45);will-change:transform;transition:-webkit-text-stroke-color .3s}
 .motto:hover .motto-line{-webkit-text-stroke-color:var(--gold)}
 @media (prefers-reduced-motion: reduce){.motto-line{transform:none!important}}
+
+/* Le détail du compteur passe au-dessus des graphiques en dessous */
+.hero,.page-hero{z-index:5}
+.gen-wrap{position:relative;z-index:20}

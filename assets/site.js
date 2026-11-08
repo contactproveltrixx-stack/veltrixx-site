@@ -74,7 +74,8 @@
   if (lang !== 'en') lang = 'fr';
   function u(k) { return UI[lang][k]; }
   function loc() { return lang === 'en' ? 'en-US' : 'fr-FR'; }
-  function nf(n) { return Number(n).toLocaleString(loc()); }
+  // l'espace fine des nombres français n'existe pas dans la police : on met une espace normale insécable
+  function nf(n) { return Number(n).toLocaleString(loc()).replace(/\u202f/g, '\u00a0'); }
   function compact(n) {
     n = Number(n);
     var s, unit;

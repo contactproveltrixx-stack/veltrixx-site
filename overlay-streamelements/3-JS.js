@@ -3,7 +3,7 @@
    Si le site n'est pas joignable, l'overlay affiche les derniers chiffres connus (relevé du 8 nov. 2026). */
 (function () {
   var DEFAULTS = {
-    siteUrl: '', lang: 'fr', position: 'bottom', bannerWidth: 1500, offset: 60,
+    siteUrl: '', lang: 'fr', position: 'bottom', scale: 1, offset: 40,
     displaySeconds: 12, gapSeconds: 25, refreshMinutes: 5,
     showVideos: true, showStats: true, showSocials: true, showCode: true,
     creatorCode: 'VELTRIXXVFX', testPanel: 'cycle', chatCommands: true
@@ -27,8 +27,8 @@
   };
 
   var T = {
-    fr: { role: 'Monteur vidéo', live: 'Live', vids: 'Top <span class="b">montages</span>', stats: 'Vues <span class="b">générées</span>', socials: 'Mes <span class="b">réseaux</span>', code: 'Code <span class="g">créateur</span>', k_vids: 'Les plus vus', k_stats: 'YouTube + TikTok', k_socials: 'Retrouve-moi', k_code: 'Epic Games', views: 'vues', since: 'YouTube + TikTok · depuis mon arrivée chez chaque créateur', most: 'N°1', on: 'sur', site: 'Site', contact: 'Contact pro', shop: 'Boutique d’objets Fortnite', how: 'Utilise mon code dans la boutique d’objets Fortnite pour me soutenir', pub: '#publicité', upd: 'Mis à jour', ago: 'il y a {n} min', now: 'à l’instant', h: 'il y a {n} h' },
-    en: { role: 'Video editor', live: 'Live', vids: 'Top <span class="b">edits</span>', stats: 'Views <span class="b">generated</span>', socials: 'My <span class="b">socials</span>', code: 'Creator <span class="g">code</span>', k_vids: 'Most watched', k_stats: 'YouTube + TikTok', k_socials: 'Find me', k_code: 'Epic Games', views: 'views', since: 'YouTube + TikTok · since I joined each creator', most: 'No. 1', on: 'on', site: 'Website', contact: 'Business contact', shop: 'Fortnite Item Shop', how: 'Use my code in the Item Shop to support me', pub: '#ad', upd: 'Updated', ago: '{n} min ago', now: 'just now', h: '{n} h ago' }
+    fr: { role: 'Monteur vidéo', live: 'Live', vids: 'Top <span class="b">montages</span>', stats: 'Vues <span class="b">générées</span>', socials: 'Mes <span class="b">réseaux</span>', code: 'Code créateur <span class="g">Epic</span>', k_vids: 'Les plus vus', k_stats: 'YouTube + TikTok', k_socials: 'Retrouve-moi', k_code: 'Epic Games', views: 'vues', since: 'YouTube + TikTok · depuis mon arrivée chez chaque créateur', most: 'N°1', on: 'sur', site: 'Site', contact: 'Contact pro', shop: 'Boutique d’objets Fortnite', how: 'Utilise mon code dans la boutique d’objets Fortnite pour me soutenir', pub: '#publicité', upd: 'Mis à jour', ago: 'il y a {n} min', now: 'à l’instant', h: 'il y a {n} h' },
+    en: { role: 'Video editor', live: 'Live', vids: 'Top <span class="b">edits</span>', stats: 'Views <span class="b">generated</span>', socials: 'My <span class="b">socials</span>', code: 'Epic creator <span class="g">code</span>', k_vids: 'Most watched', k_stats: 'YouTube + TikTok', k_socials: 'Find me', k_code: 'Epic Games', views: 'views', since: 'YouTube + TikTok · since I joined each creator', most: 'No. 1', on: 'on', site: 'Website', contact: 'Business contact', shop: 'Fortnite Item Shop', how: 'Use my code in the Item Shop to support me', pub: '#ad', upd: 'Updated', ago: '{n} min ago', now: 'just now', h: '{n} h ago' }
   };
   var I = {
     eye: '<svg class="ey" viewBox="0 0 16 16"><path d="M8 3C4 3 1.5 6.5 1 8c.5 1.5 3 5 7 5s6.5-3.5 7-5c-.5-1.5-3-5-7-5zm0 8a3 3 0 110-6 3 3 0 010 6z"/></svg>',
@@ -47,7 +47,7 @@
   function on(v) { return v === true || v === 'true' || v === 1 || v === '1'; }
   function t(k) { return (T[F.lang] || T.fr)[k]; }
   function loc() { return F.lang === 'en' ? 'en-US' : 'fr-FR'; }
-  function nf(n) { return Number(n).toLocaleString(loc()); }
+  function nf(n) { return Number(n).toLocaleString(loc()).replace(/\u202f/g, '\u00a0'); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function compact(n) {
     n = Number(n); var s, u;
@@ -113,28 +113,27 @@
     var src = abs(c.pp);
     return '<span class="av">' + esc((c.name || '?').charAt(0)) + (src ? '<img src="' + esc(src) + '" alt="" onerror="this.remove()">' : '') + '</span>';
   }
-  /* Début du bandeau : ta photo, ton pseudo, puis le titre du contenu */
-  function head(kicker, title) {
+  /* En-tête du module : ta photo, ton pseudo, le titre du contenu */
+  function head(title) {
     var m = me();
-    return '<div class="brand it" style="--d:0"><span class="me"><b>V</b><img src="' + esc(m.pp || FALLBACK.me.pp) + '" alt="" onerror="this.remove()"></span>' +
-      '<span class="brand-t"><b>' + esc(m.pseudo || 'Veltrixx') + '</b><small><span class="dot"></span>' + esc(domain() || t('role')) + '</small></span></div>' +
-      '<div class="label it" style="--d:1"><small>' + kicker + '</small><h2>' + title + '</h2></div>';
+    return '<div class="hd it" style="--d:0"><span class="me"><b>V</b><img src="' + esc(m.pp || FALLBACK.me.pp) + '" alt="" onerror="this.remove()"></span>' +
+      '<span class="nm">' + esc(m.pseudo || 'Veltrixx') + '</span><span class="sep"></span><h2 class="ttl">' + title + '</h2>' +
+      '<span class="live"><span class="dot"></span>' + t('live') + '</span></div>';
   }
 
-  /* ---------- Contenus du bandeau ---------- */
+  /* ---------- Contenus du module ---------- */
   function pVideos() {
-    var html = head(t('k_vids'), t('vids')) + '<div class="content">';
+    var html = head(t('vids')) + '<div class="bd">';
     topVideos().forEach(function (v, i) {
-      var c = creators()[v.ch] || { name: v.ch };
-      html += '<div class="v it' + (i === 0 ? ' first' : '') + '" style="--d:' + (2 + i) + '"><div class="th"><img src="https://i.ytimg.com/vi/' + esc(v.id) + '/mqdefault.jpg" alt=""><span class="rk">#' + (i + 1) + '</span>' + (v.dur ? '<span class="du">' + esc(v.dur) + '</span>' : '') + '</div>' +
-        '<div class="vt"><h4>' + esc(v.t) + '</h4><div class="vm">' + avatar(v.ch) + '<span class="n">' + esc(c.name) + '</span>' + I.eye + '<b>' + compact(v.v) + '</b></div></div></div>';
+      html += '<div class="v it' + (i === 0 ? ' first' : '') + '" style="--d:' + (1 + i) + '"><img src="https://i.ytimg.com/vi/' + esc(v.id) + '/mqdefault.jpg" alt="">' +
+        '<span class="rk">#' + (i + 1) + '</span><span class="vm">' + avatar(v.ch) + I.eye + compact(v.v) + '</span></div>';
     });
     return html + '</div>';
   }
   function chartSvg(pts) {
-    var W = 400, H = 70, pad = 8;
+    var W = 300, H = 88, pad = 8;
     var t0 = pts[0].t, t1 = pts[pts.length - 1].t, vmax = pts[pts.length - 1].v * 1.1 || 1;
-    function X(x) { return (t1 === t0 ? W - 14 : (x - t0) / (t1 - t0) * (W - 14)); }
+    function X(x) { return (t1 === t0 ? W - 12 : (x - t0) / (t1 - t0) * (W - 12)); }
     function Y(v) { return pad + (1 - v / vmax) * (H - pad - 4); }
     var d = pts.map(function (p, i) { return (i ? 'L' : 'M') + X(p.t).toFixed(1) + ' ' + Y(p.v).toFixed(1); }).join(' ');
     var lp = pts[pts.length - 1], grid = '';
@@ -144,50 +143,37 @@
       '<path class="ar" d="' + d + ' L' + X(lp.t).toFixed(1) + ' ' + H + ' L0 ' + H + ' Z" fill="url(#vxg)"/>' +
       '<path class="ln" style="--len:' + len + '" pathLength="' + len + '" d="' + d + '"/></svg>' +
       '<span class="endpt" style="left:' + (X(lp.t) / W * 100).toFixed(2) + '%;top:' + (Y(lp.v) / H * 100).toFixed(2) + '%"></span>' +
-      '<span class="ax l">' + new Date(t0).toLocaleDateString(loc(), { month: 'short', year: 'numeric' }) + '</span><span class="ax r">' + new Date(t1).toLocaleDateString(loc(), { day: '2-digit', month: 'short' }) + '</span>';
-  }
-  function best(lt) {
-    var rows = [];
-    for (var k in lt.yt) rows.push([k, 'YouTube', lt.yt[k]]);
-    for (var k2 in lt.tt) rows.push([k2, 'TikTok', lt.tt[k2]]);
-    rows.sort(function (a, b) { return b[2] - a[2]; });
-    return rows[0];
+      '<span class="ax l">' + new Date(t0).toLocaleDateString(loc(), { month: 'short', year: '2-digit' }) + '</span><span class="ax r">' + new Date(t1).toLocaleDateString(loc(), { day: '2-digit', month: 'short' }) + '</span>';
   }
   function pStats() {
-    var lt = liveTotals(), yt = sum(lt.yt), tk = sum(lt.tt), tot = yt + tk, r = best(lt);
+    var lt = liveTotals(), yt = sum(lt.yt), tk = sum(lt.tt), tot = yt + tk;
     shownTotal = tot;
-    var top = '';
-    if (r) { var c = creators()[r[0]] || { name: r[0] }; top = '<div class="chip top it" style="--d:6"><span class="ic">' + avatar(r[0]) + '</span><span><b>' + esc(c.name) + ' · ' + compact(r[2]) + '</b><small>' + t('most') + ' ' + t('on') + ' ' + r[1] + '</small></span></div>'; }
-    return head(t('k_stats'), t('stats')) + '<div class="content">' +
-      '<div class="big it" style="--d:2"><div class="row"><b id="vxTot">' + compact(tot) + '</b><span class="plus" id="vxPlus"' + (plus > 0 ? '' : ' hidden') + '>+' + nf(plus) + '</span></div><small><span id="vxFull">' + nf(tot) + '</span> ' + t('views') + '</small></div>' +
-      '<div class="chart it" style="--d:3">' + chartSvg(series()) + '</div>' +
-      '<div class="chips"><div class="chip yt it" style="--d:4"><span class="ic">' + I.yt + '</span><span><b>' + compact(yt) + '</b><small>YouTube</small></span></div>' +
-      '<div class="chip tt it" style="--d:5"><span class="ic">' + I.tt + '</span><span><b>' + compact(tk) + '</b><small>TikTok</small></span></div>' + top + '</div></div>';
+    return head(t('stats')) + '<div class="bd">' +
+      '<div class="big it" style="--d:1"><div class="row"><b id="vxTot">' + compact(tot) + '</b><span class="plus" id="vxPlus"' + (plus > 0 ? '' : ' hidden') + '>+' + nf(plus) + '</span></div>' +
+      '<div class="split"><span class="y">' + I.yt + '<b>' + compact(yt) + '</b></span><span class="k">' + I.tt + '<b>' + compact(tk) + '</b></span></div></div>' +
+      '<div class="chart it" style="--d:2">' + chartSvg(series()) + '</div></div>';
   }
   function refreshStatsPanel(pop) {
     var lt = liveTotals(), tot = sum(lt.yt) + sum(lt.tt);
-    var a = document.getElementById('vxTot'), b = document.getElementById('vxFull'), p = document.getElementById('vxPlus');
+    var a = document.getElementById('vxTot'), p = document.getElementById('vxPlus');
     if (a) a.textContent = compact(tot);
-    if (b) b.textContent = nf(tot);
     if (p && plus > 0) { p.hidden = false; p.textContent = '+' + nf(plus); if (pop) { p.classList.remove('pop'); void p.offsetWidth; p.classList.add('pop'); } }
     shownTotal = tot;
   }
   function pSocials() {
     var m = me(), rows = [
-      ['x', I.x, 'X', '@' + String(m.x || 'https://x.com/veltrixx10').split('/').pop()],
-      ['tw', I.tw, 'Twitch', String(m.twitch || 'https://www.twitch.tv/veltrixx10').split('/').pop()],
-      ['dc', I.dc, 'Discord', m.discordUser || 'veltrixxm10']
+      ['x', I.x, '@' + String(m.x || 'https://x.com/veltrixx10').split('/').pop()],
+      ['tw', I.tw, String(m.twitch || 'https://www.twitch.tv/veltrixx10').split('/').pop()],
+      ['dc', I.dc, m.discordUser || 'veltrixxm10'],
+      domain() ? ['web', I.web, domain()] : ['mail', I.mail, m.email || FALLBACK.me.email]
     ];
-    // l'adresse du site est déjà affichée au début du bandeau, sous ton pseudo
-    rows.push(['mail', I.mail, t('contact'), m.email || FALLBACK.me.email]);
-    return head(t('k_socials'), t('socials')) + '<div class="content">' +
-      rows.map(function (r, i) { return '<div class="s ' + r[0] + ' it" style="--d:' + (2 + i) + '"><span class="ic">' + r[1] + '</span><span class="t"><small>' + r[2] + '</small><b>' + esc(r[3]) + '</b></span></div>'; }).join('') +
-      '</div>';
+    return head(t('socials')) + '<div class="bd"><div class="soc">' +
+      rows.map(function (r, i) { return '<div class="s ' + r[0] + ' it" style="--d:' + (1 + i) + '"><span class="ic">' + r[1] + '</span><b>' + esc(r[2]) + '</b></div>'; }).join('') +
+      '</div></div>';
   }
   function pCode() {
-    return head(t('k_code'), t('code')) + '<div class="content">' +
-      '<div class="codewrap it" style="--d:2"><div class="code"><b>' + esc(String(F.creatorCode || 'VELTRIXXVFX').toUpperCase()) + '</b></div><span class="pub">' + t('pub') + '</span></div>' +
-      '<div class="how it" style="--d:3"><small>' + t('shop') + '</small><p>' + t('how') + '</p></div></div>';
+    return head(t('code')) + '<div class="bd">' +
+      '<div class="codewrap it" style="--d:1"><div class="code"><b>' + esc(String(F.creatorCode || 'VELTRIXXVFX').toUpperCase()) + '</b></div><span class="pub">' + t('pub') + '</span></div></div>';
   }
   var BUILD = { videos: pVideos, stats: pStats, socials: pSocials, code: pCode };
 
@@ -232,7 +218,7 @@
 
   function start() {
     if (started) return; started = true;
-    document.documentElement.style.setProperty('--w', (Number(F.bannerWidth) || 1500) + 'px');
+    document.documentElement.style.setProperty('--s', String(Number(F.scale) || 1));
     document.documentElement.style.setProperty('--offset', (Number(F.offset) || 0) + 'px');
     stage.className = 'stage pos-' + (F.position || 'bottom');
     Promise.all([loadData(), loadStats()]).then(function () {

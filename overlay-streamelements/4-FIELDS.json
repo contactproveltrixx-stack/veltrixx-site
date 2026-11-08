@@ -47,7 +47,7 @@
   },
   "testPanel": {
     "type": "dropdown",
-    "label": "Mode (fixe = pour placer le bandeau)",
+    "label": "Mode (fixe = pour placer le module)",
     "value": "cycle",
     "options": {
       "cycle": "Défilement automatique",
@@ -87,7 +87,7 @@
   },
   "position": {
     "type": "dropdown",
-    "label": "Position du bandeau dans le widget",
+    "label": "Position du module dans le widget",
     "value": "bottom",
     "options": {
       "bottom": "En bas",
@@ -102,22 +102,22 @@
     "value": true,
     "group": "Chat"
   },
-  "bannerWidth": {
-    "type": "number",
-    "label": "Largeur du bandeau (px)",
-    "value": 1500,
-    "min": 900,
-    "max": 1920,
-    "step": 10,
-    "group": "Apparence"
-  },
   "offset": {
     "type": "number",
-    "label": "Marge depuis le bord (px)",
-    "value": 60,
+    "label": "Marge depuis les bords (px)",
+    "value": 40,
     "min": 0,
     "max": 400,
     "step": 5,
+    "group": "Apparence"
+  },
+  "scale": {
+    "type": "number",
+    "label": "Taille (1 = 512 x 160 px · 0.36 = 182 x 57 px)",
+    "value": 1,
+    "min": 0.3,
+    "max": 3,
+    "step": 0.05,
     "group": "Apparence"
   }
 }

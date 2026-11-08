@@ -1,11 +1,11 @@
 # Overlay Veltrixx pour StreamElements
 
-C'est un **bandeau horizontal**. Il sort du bord gauche de l'écran, reste affiché quelques secondes,
-puis rentre vers la gauche. Il affiche tour à tour 4 contenus :
+C'est un **module compact au format 3,2:1** (512 x 160 px à la taille 1). Il glisse depuis la gauche,
+reste affiché quelques secondes, puis repart vers la gauche. Il affiche tour à tour 4 contenus :
 
-1. **Mes meilleurs montages** : tes 3 vidéos les plus vues, avec leurs miniatures.
+1. **Top montages** : les miniatures de tes 3 vidéos les plus vues, avec le rang et les vues.
 2. **Vues générées** : ton compteur total (YouTube + TikTok), son graphique et le « +X » quand de nouvelles vues arrivent.
-3. **Mes réseaux** : X, Twitch, Discord et ton email pro. L'adresse de ton site est affichée sous ton pseudo.
+3. **Mes réseaux** : X, Twitch, Discord et ton site (ou ton email pro si l'adresse du site n'est pas remplie).
 4. **Code créateur** : VELTRIXXVFX, avec « #publicité » juste en dessous.
 
 Les données viennent directement de ton site (`assets/data.js` et `data/stats.json`).
@@ -26,10 +26,11 @@ Quand le robot met à jour les stats, l'overlay suit tout seul.
 5. Dans les réglages du widget, à gauche :
    - **Adresse de ton site** : mets l'adresse de ton site en ligne (ex. `https://veltrixx.fr`).
      Sans elle, l'overlay affiche les chiffres du 8 novembre.
-   - Pour placer le widget, choisis **Mode > Fixe : top montages** : le bandeau reste affiché.
+   - Pour placer le widget, choisis **Mode > Fixe : top montages** : le module reste affiché.
      Remets **Défilement automatique** quand c'est bon.
-6. Étire le widget sur **toute la largeur de l'écran** (1920 de large, environ 250 de haut) et place-le en bas.
-   Tu peux régler la largeur du bandeau (1500 px par défaut) et sa marge depuis le bas dans « Apparence ». Enregistre avec **Save** en haut à droite.
+6. Donne au widget une taille d'environ **620 x 260** et place-le en bas à gauche.
+   Dans « Apparence », le réglage **Taille** agrandit ou réduit tout le module sans le déformer :
+   1 = 512 x 160 px, 0.36 = 182 x 57 px (la taille de ta capture), 1.5 = 768 x 240 px. Enregistre avec **Save** en haut à droite.
 7. Copie le lien de l'overlay (bouton **Copy URL**) et ajoute-le dans OBS :
    **Sources > + > Navigateur**, colle le lien, 1920 x 1080.
 
