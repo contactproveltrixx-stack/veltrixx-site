@@ -101,7 +101,13 @@ async function tiktokAll() {
   catch { console.log('Playwright absent : TikTok ignoré.'); return null; }
   // Sur le PC Windows, on utilise Microsoft Edge (déjà installé) ; sinon le Chromium de Playwright.
   let browser;
-  if (process.platform === 'win32') browser = await chromium.launch({ channel: 'msedge' }).catch(e => { console.log('Edge indisponible :', e.message.split('\n')[0]); return null; });
+  // Sur le PC : le vrai Google Chrome (mode invisible récent, que TikTok accepte mieux), sinon Edge.
+  const args = ['--disable-blink-features=AutomationControlled'];
+  if (process.platform === 'win32') for (const channel of ['chrome', 'msedge']) {
+    if (browser) break;
+    browser = await chromium.launch({ channel, args }).catch(e => { console.log(channel + ' indisponible :', e.message.split('\n')[0]); return null; });
+    if (browser) console.log('Navigateur :', channel);
+  }
   if (!browser) browser = await chromium.launch().catch(e => { console.log('Chromium absent :', e.message.split('\n')[0]); return null; });
   if (!browser) {
     // Première fois sur ce PC : on télécharge le navigateur de Playwright (une seule fois, ~150 Mo).
@@ -136,8 +142,8 @@ async function tiktokAll() {
         if (n === last) { if (++still > 6) break; } else { still = 0; last = n; }
       }
       const list = Object.values(items).filter(x => x[0] >= cutoff).sort((a, b) => a[0] - b[0]);
-      if (list.length) out[name] = { list, profile };
-      else console.log('TikTok @' + user + ' : aucune vidéo lue (TikTok a peut-être bloqué la visite).');
+      console.log('TikTok @' + user + ' :', list.length, 'vidéos lues', profile ? '| abonnés ' + profile.followers + ' | J\'aime ' + profile.likes : '| profil illisible');
+      if (list.length || profile) out[name] = { list, profile };
     } catch (e) { console.log('TikTok @' + user + ' :', e.message); }
     await page.close();
   }
@@ -151,7 +157,7 @@ if (tk && Object.keys(tk).length) {
   for (const [name, r] of Object.entries(tk)) {
     const prev = stats.tiktok.videos[name]?.length || 0;
     // si TikTok n'a renvoyé qu'une partie de la liste, on garde l'ancienne
-    if (r.list.length >= prev * 0.9) {
+    if (r.list.length && r.list.length >= prev * 0.9) {
       stats.tiktok.videos[name] = r.list;
       views[name] = r.list.reduce((a, x) => a + x[1], 0);
     }
