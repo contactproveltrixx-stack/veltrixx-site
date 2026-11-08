@@ -9,7 +9,7 @@ const ME = {
   // Ta photo de profil X, toujours à jour : unavatar.io va chercher ta photo actuelle sur X.
   // Si le service ne répond pas, l'ancienne photo s'affiche, puis le V.
   pp: "https://unavatar.io/x/veltrixx10?fallback=" + encodeURIComponent("https://pbs.twimg.com/profile_images/2116868082761101312/RHSWf1au_400x400.jpg"),
-  email: "contactpro.veltrixx@gmail.com",
+  email: "contact@veltrixx.eu",
   discordUser: "veltrixxm10",
   // Pour que le bouton Discord ouvre directement ton profil, colle ton ID Discord ici
   // (Discord > Paramètres > Avancés > Mode développeur, puis clic droit sur ton profil > Copier l'identifiant).

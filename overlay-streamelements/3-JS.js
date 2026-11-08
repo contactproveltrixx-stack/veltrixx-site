@@ -11,7 +11,7 @@
 
   /* Secours si le site ne répond pas */
   var FALLBACK = {
-    me: { pseudo: 'Veltrixx', pp: 'https://unavatar.io/x/veltrixx10', x: 'https://x.com/veltrixx10', twitch: 'https://www.twitch.tv/veltrixx10', discordUser: 'veltrixxm10', email: 'contactpro.veltrixx@gmail.com' },
+    me: { pseudo: 'Veltrixx', pp: 'https://unavatar.io/x/veltrixx10', x: 'https://x.com/veltrixx10', twitch: 'https://www.twitch.tv/veltrixx10', discordUser: 'veltrixxm10', email: 'contact@veltrixx.eu' },
     videos: [
       { id: 'IXR9GzDJFm4', ch: 'leo', t: 'J’ai RÉUNI 6 PROS pour un 3VS3 TOKEN avec SHXRK, RAX, AKIIRA.. (Akiira est devenu Peterbot..)', v: 62276, dur: '18:47' },
       { id: '8misPuF_eQ8', ch: 'leo', t: 'J’ai ORGANISÉ LE 1VS1 entre le MEILLEUR JOUEUR DU MONDE et le MEILLEUR FRANÇAIS.. (Faut voir ça)', v: 33251, dur: '18:13' },
