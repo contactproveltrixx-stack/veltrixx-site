@@ -19,7 +19,7 @@
       errs: { 'Invalid login credentials': 'Email ou mot de passe incorrect.', 'Email not confirmed': 'Confirme d’abord ton email (regarde tes mails, et les spams).',
         'User already registered': 'Un compte existe déjà avec cet email : connecte-toi.', 'Password should be at least': 'Le mot de passe doit faire au moins 8 caractères.',
         'rate limit': 'Trop d’essais : réessaie dans quelques minutes.', 'Unable to validate email address': 'Cet email n’est pas valide.' },
-      err: 'Erreur : ', need: 'Remplis tous les champs.'
+      err: 'Erreur : ', need: 'Remplis tous les champs.', show: 'Afficher le mot de passe', hide: 'Masquer le mot de passe'
     },
     en: {
       off: 'Accounts are not enabled on the site yet.', loginTab: 'Sign in', signupTab: 'Create an account',
@@ -38,7 +38,7 @@
       errs: { 'Invalid login credentials': 'Wrong email or password.', 'Email not confirmed': 'Please confirm your email first (check your inbox and spam).',
         'User already registered': 'An account already exists with this email: sign in.', 'Password should be at least': 'Password must be at least 8 characters.',
         'rate limit': 'Too many attempts: try again in a few minutes.', 'Unable to validate email address': 'This email is not valid.' },
-      err: 'Error: ', need: 'Please fill in every field.'
+      err: 'Error: ', need: 'Please fill in every field.', show: 'Show password', hide: 'Hide password'
     }
   };
   function t(k) { return (T[S.lang()] || T.fr)[k]; }
@@ -58,7 +58,21 @@
   var ICON_G = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
   var ICON_D = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M13.5 3.2A12 12 0 0010.6 2l-.4.8a11 11 0 00-4.4 0L5.4 2a12 12 0 00-2.9 1.2C.7 6 .3 8.7.5 11.4a12 12 0 003.6 1.8l.8-1.2c-.5-.2-.9-.4-1.3-.7l.3-.2a8.5 8.5 0 007.2 0l.3.2c-.4.3-.8.5-1.3.7l.8 1.2a12 12 0 003.6-1.8c.3-3.1-.5-5.8-2-8.2zM5.6 9.8c-.7 0-1.3-.7-1.3-1.5s.6-1.5 1.3-1.5 1.3.7 1.3 1.5-.6 1.5-1.3 1.5zm4.8 0c-.7 0-1.3-.7-1.3-1.5s.6-1.5 1.3-1.5 1.3.7 1.3 1.5-.6 1.5-1.3 1.5z"/></svg>';
 
-  function render() {
+  // Bouton « œil » pour voir le mot de passe pendant qu'on le tape
+  var EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6.5 5 2.7 9.1 1.5 12c1.2 2.9 5 7 10.5 7s9.3-4.1 10.5-7C21.3 9.1 17.5 5 12 5zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9zm0-2.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="currentColor"/></svg>';
+  var EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.3 2.3L2 3.6l3.2 3.2C3.4 8.1 2.2 9.9 1.5 12c1.2 2.9 5 7 10.5 7 2 0 3.8-.5 5.3-1.4l3.1 3.1 1.3-1.3L3.3 2.3zM12 16.5A4.5 4.5 0 0 1 7.5 12c0-.8.2-1.5.5-2.1l1.6 1.6a2.5 2.5 0 0 0 2.9 2.9l1.6 1.6c-.6.3-1.3.5-2.1.5zM12 5c-1.3 0-2.6.2-3.7.6l2.1 2.1A4.5 4.5 0 0 1 16.3 13.6l3 3c1.5-1.3 2.6-3 3.2-4.6C21.3 9.1 17.5 5 12 5z" fill="currentColor"/></svg>';
+  function addEyes() {
+    root.querySelectorAll('input[type=password]').forEach(function (inp) {
+      if (inp.parentNode.classList.contains('pw-wrap')) return;
+      var w = document.createElement('div'); w.className = 'pw-wrap';
+      inp.parentNode.insertBefore(w, inp); w.appendChild(inp);
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'pw-eye'; b.innerHTML = EYE;
+      b.setAttribute('aria-label', t('show')); b.setAttribute('aria-pressed', 'false');
+      w.appendChild(b);
+    });
+  }
+  function render() { draw(); addEyes(); }
+  function draw() {
     if (!VX.configured) { root.innerHTML = '<div class="panel acc-card"><p class="msg err">' + t('off') + '</p></div>'; return; }
     if (recovering) return renderRecovery();
     if (VX.user) return renderProfile();
@@ -120,6 +134,13 @@
   }
 
   root.addEventListener('click', function (e) {
+    var eye = e.target.closest('.pw-eye');
+    if (eye) {
+      var inp = eye.parentNode.querySelector('input'), show = inp.type === 'password';
+      inp.type = show ? 'text' : 'password';
+      eye.innerHTML = show ? EYE_OFF : EYE; eye.setAttribute('aria-pressed', show ? 'true' : 'false'); eye.setAttribute('aria-label', show ? t('hide') : t('show'));
+      inp.focus(); return;
+    }
     var m = e.target.closest('[data-mode]'); if (m) { mode = m.dataset.mode; render(); return; }
     if (e.target.closest('[data-out]')) { VX.signOut(); return; }
     var o = e.target.closest('[data-oauth]');
