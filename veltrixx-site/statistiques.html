@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-en="Stats — Veltrixx">Statistiques — Veltrixx</title>
+<meta name="description" content="Vues YouTube et J'aime TikTok en direct sur les comptes gérés par Veltrixx, et les chiffres de ses montages.">
+<meta name="theme-color" content="#03050C">
+<link rel="icon" href="https://unavatar.io/x/veltrixx10?fallback=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F2116868082761101312%2FRHSWf1au_normal.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800;1,900&family=Manrope:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="stats">
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <h1 class="h rise" data-i18n="st.h1">Mes <span class="b">statistiques</span></h1>
+      <p class="lead rise d1" data-i18n="st.lead">Les vues en direct sur les comptes YouTube et TikTok que je gère, comptées à partir de mon arrivée chez chaque créateur.</p>
+      <!-- Compteur total : se met à jour avec les graphiques. Survol = détail par créateur et par réseau -->
+      <div class="gen-wrap rise d2">
+        <div class="gen" tabindex="0">
+          <span class="gen-l" data-i18n="st.gen">Vues que j'ai générées</span>
+          <span class="gen-num"><b data-live="gen">5,9 M</b><span class="gen-plus" data-live="genPlus" hidden></span></span>
+          <span class="gen-hint"><span data-live="genFull">5 931 672</span> · <span data-i18n="st.hover">Survole pour le détail</span></span>
+          <div class="gen-pop" data-live="genPop"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Graphiques en direct : alimentés par data/stats.json (robot GitHub Actions toutes les 10 min) -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div class="live-grid">
+        <div class="panel live-card">
+          <div class="live-top">
+            <div><h3 data-i18n="st.yt">YouTube</h3><p data-i18n="st.ytk">Werex depuis le 28/03, Akiira et SkyJump depuis le 11/06, Leo depuis le 12/08</p></div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="toggle" role="group" aria-label="YouTube">
+                <button type="button" data-yt="views" aria-pressed="true" data-i18n="st.viewsBtn">Vues</button>
+                <button type="button" data-yt="subs" aria-pressed="false" data-i18n="st.subsBtn">Abonnés</button>
+              </div>
+              <span class="badge-live"><span class="ping" aria-hidden="true"></span><span data-i18n="home.live">Direct</span></span>
+            </div>
+          </div>
+          <div class="big-num" data-live="ytFull">708 612</div>
+          <div class="sub-row"><span data-live="ytLabel"></span><span data-live="ytAgo"></span></div>
+          <div class="chart" id="ytChart"></div>
+          <div class="breakdown" id="ytBreak"></div>
+        </div>
+
+        <div class="panel live-card tt">
+          <div class="live-top">
+            <div><h3 data-i18n="st.tt">TikTok</h3><p data-i18n="st.ttk">Werex depuis le 28/03, Akiira et SkyJump depuis le 11/06 · profils publics</p></div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="toggle" role="group" aria-label="TikTok">
+                <button type="button" data-tt="views" aria-pressed="true" data-i18n="st.viewsBtn">Vues</button>
+                <button type="button" data-tt="followers" aria-pressed="false" data-i18n="st.folBtn">Abonnés</button>
+                <button type="button" data-tt="likes" aria-pressed="false" data-i18n="st.likesBtn">J'aime</button>
+              </div>
+              <span class="badge-live"><span class="ping" aria-hidden="true"></span><span data-i18n="home.live">Direct</span></span>
+            </div>
+          </div>
+          <div class="big-num" data-live="ttFull">5 223 060</div>
+          <div class="sub-row"><span data-live="ttLabel"></span><span data-live="ttAgo"></span></div>
+          <div class="chart" id="ttChart"></div>
+          <div class="breakdown" id="ttBreak"></div>
+        </div>
+      </div>
+      <p class="live-note" data-i18n="st.liveNote">Les graphiques se mettent à jour tout seuls : le site vérifie les nouvelles données chaque minute, et les comptes sont relevés toutes les 10 minutes.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h" data-i18n="st.edits">Mes <span class="b">montages</span> en chiffres</h2>
+        <p class="kicker" data-i18n="st.editsk">Les 20 vidéos de la page Montages</p>
+      </div>
+      <div class="strip" style="margin-top:0;margin-bottom:18px">
+        <div class="stat"><b data-num="views">274 k</b><span data-i18n="st.s7">vues sur ces montages</span></div>
+        <div class="stat"><b data-num="likes">5 680</b><span data-i18n="st.s5">likes sur ces montages</span></div>
+        <div class="stat"><b data-num="avg">13,7 k</b><span data-i18n="st.s6">vues en moyenne par vidéo</span></div>
+        <div class="stat"><b data-num="count">20</b><span data-i18n="home.s3">montages à voir</span></div>
+      </div>
+      <div class="grid2">
+        <div class="panel"><h3 class="ttl" data-i18n="st.bych">Vues par chaîne</h3><div class="bars" id="barsCh"></div></div>
+        <div class="panel"><h3 class="ttl" data-i18n="st.likes">Likes par chaîne</h3><div class="bars" id="barsLikes"></div></div>
+      </div>
+      <div class="panel" style="margin-top:18px"><h3 class="ttl" data-i18n="st.byvid">Vues par vidéo</h3><div class="bars" id="barsVid"></div></div>
+      <p class="src" data-i18n="st.src">Chiffres des montages relevés le 8 novembre 2026. Clique sur une vidéo pour la regarder.</p>
+    </div>
+  </section>
+</main>
+<script src="assets/data.js"></script>
+<script src="assets/stats-seed.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

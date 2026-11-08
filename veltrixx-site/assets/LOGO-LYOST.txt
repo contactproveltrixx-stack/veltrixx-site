@@ -1,0 +1,9 @@
+LOGO 3D DE LA PAGE LYOST
+========================
+Dépose le logo de Lyost ici, dans ce dossier assets/, sous le nom :
+
+  lyost-logo.png
+
+Idéalement un PNG carré avec fond transparent (512 x 512 ou plus).
+Il apparaîtra automatiquement sur la pièce 3D qui tourne sur la page Lyost Esport.
+Tant qu'il n'est pas là, la pièce affiche « LYOST ESPORT » en texte.

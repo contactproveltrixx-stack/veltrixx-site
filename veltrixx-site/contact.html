@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-en="Contact — Veltrixx">Contact — Veltrixx</title>
+<meta name="description" content="Contacter Veltrixx pour un montage, de la gestion de chaîne YouTube ou TikTok, ou une collaboration.">
+<meta name="theme-color" content="#03050C">
+<link rel="icon" href="https://unavatar.io/x/veltrixx10?fallback=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F2116868082761101312%2FRHSWf1au_normal.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800;1,900&family=Manrope:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="contact">
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <h1 class="h rise" data-i18n="ct.h1">Me <span class="b">contacter</span></h1>
+      <p class="lead rise d1" data-i18n="ct.lead">Dis-moi ce dont tu as besoin. Ta demande arrive directement dans ma boîte mail et je te réponds sous 24 h.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:20px">
+    <div class="wrap contact-layout">
+      <div class="panel">
+        <form class="form" id="contactForm" novalidate>
+          <div class="field"><label for="f-nom" data-i18n="ct.name">Nom ou pseudo</label><input id="f-nom" name="nom" autocomplete="name" required data-i18n-ph="ct.phname" placeholder="Ex. Leo"></div>
+          <div class="field"><label for="f-email" data-i18n="ct.email">Ton email</label><input id="f-email" name="email" type="email" autocomplete="email" required placeholder="nom@exemple.com"></div>
+          <div class="field">
+            <label for="f-type" data-i18n="ct.type">Type de demande</label>
+            <select id="f-type" name="type">
+              <option value="Montage YouTube" data-i18n="ct.t1">Montage YouTube</option>
+              <option value="Short / TikTok / Reel" data-i18n="ct.t2">Short / TikTok / Reel</option>
+              <option value="Channel Manager" data-i18n="ct.t3">Channel Manager</option>
+              <option value="Gestion TikTok" data-i18n="ct.t4">Gestion TikTok</option>
+              <option value="Collaboration / partenariat" data-i18n="ct.t5">Collaboration / partenariat</option>
+              <option value="Autre" data-i18n="ct.t6">Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-budget" data-i18n="ct.budget">Budget</label>
+            <select id="f-budget" name="budget">
+              <option value="À discuter" data-i18n="ct.b0">À discuter</option>
+              <option value="Moins de 50 €">&lt; 50 €</option>
+              <option value="50 – 150 €">50 – 150 €</option>
+              <option value="150 – 300 €">150 – 300 €</option>
+              <option value="Plus de 300 €">300 € +</option>
+            </select>
+          </div>
+          <div class="field"><label for="f-delai" data-i18n="ct.deadline">Délai</label><input id="f-delai" name="delai" data-i18n-ph="ct.phdeadline" placeholder="Ex. dans 1 semaine"></div>
+          <div class="field"><label for="f-lien" data-i18n="ct.link">Lien de ta chaîne</label><input id="f-lien" name="lien" type="url" inputmode="url" placeholder="https://youtube.com/@…"></div>
+          <div class="field full"><label for="f-msg" data-i18n="ct.msg">Ton message</label><textarea id="f-msg" name="message" required data-i18n-ph="ct.phmsg" placeholder="Type de vidéo, durée, références, date de publication…"></textarea></div>
+          <!-- Piège à robots : laisse ce champ vide et caché -->
+          <div class="hp" aria-hidden="true"><label for="f-hp">Ne pas remplir</label><input id="f-hp" name="_honey" tabindex="-1" autocomplete="off"></div>
+          <div class="form-end">
+            <button class="btn btn-blue" type="submit"><span data-i18n="ct.send">Envoyer la demande</span> <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 1L3 9h4l-1.5 6L13 7H9z"/></svg></button>
+            <p class="msg" id="formMsg" role="status" hidden></p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="aside">
+        <div class="box">
+          <h3 data-i18n="ct.direct">M'écrire directement</h3>
+          <div class="mailline"><a class="js-email" href="mailto:contactpro.veltrixx@gmail.com">contactpro.veltrixx@gmail.com</a><button class="btn btn-ghost btn-sm js-copy-email" type="button">Copier / Copy</button></div>
+        </div>
+        <div class="box">
+          <h3 data-i18n="ct.social">Mes réseaux</h3>
+          <div class="socials">
+            <a class="soc lg js-discord" href="#"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 3.2A12 12 0 0010.6 2l-.4.8a11 11 0 00-4.4 0L5.4 2a12 12 0 00-2.9 1.2C.7 6 .3 8.7.5 11.4a12 12 0 003.6 1.8l.8-1.2c-.5-.2-.9-.4-1.3-.7l.3-.2a8.5 8.5 0 007.2 0l.3.2c-.4.3-.8.5-1.3.7l.8 1.2a12 12 0 003.6-1.8c.3-3.1-.5-5.8-2-8.2zM5.6 9.8c-.7 0-1.3-.7-1.3-1.5s.6-1.5 1.3-1.5 1.3.7 1.3 1.5-.6 1.5-1.3 1.5zm4.8 0c-.7 0-1.3-.7-1.3-1.5s.6-1.5 1.3-1.5 1.3.7 1.3 1.5-.6 1.5-1.3 1.5z"/></svg>Discord · veltrixxm10</a>
+            <a class="soc lg" href="https://x.com/veltrixx10" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2h3.2L8 6l3-4h2.5L9.2 7.6 14 14h-3.2L7.8 9.9 4.6 14H2l4.6-5.8z"/></svg>X · @veltrixx10</a>
+            <a class="soc lg" href="https://www.twitch.tv/veltrixx10" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 1L1.5 4v9h3v2h2l2-2h2.5l3.5-3.5V1zm10 8l-2 2H8l-2 2v-2H3.5V2.5h9zM10 4.5h1.5V8H10zm-3.5 0H8V8H6.5z"/></svg>Twitch · veltrixx10</a>
+          </div>
+        </div>
+        <div class="box">
+          <h3 data-i18n="ct.business">Contact business</h3>
+          <a class="soc" href="https://x.com/FuLLkb9" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2h3.2L8 6l3-4h2.5L9.2 7.6 14 14h-3.2L7.8 9.9 4.6 14H2l4.6-5.8z"/></svg>Theo · @FuLLkb9</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

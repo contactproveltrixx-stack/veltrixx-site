@@ -1,0 +1,123 @@
+{
+  "siteUrl": {
+    "type": "text",
+    "label": "Adresse de ton site (ex. https://veltrixx.fr)",
+    "value": "",
+    "group": "Site"
+  },
+  "lang": {
+    "type": "dropdown",
+    "label": "Langue",
+    "value": "fr",
+    "options": {
+      "fr": "Français",
+      "en": "English"
+    },
+    "group": "Site"
+  },
+  "creatorCode": {
+    "type": "text",
+    "label": "Code créateur Epic Games",
+    "value": "VELTRIXXVFX",
+    "group": "Site"
+  },
+  "showVideos": {
+    "type": "checkbox",
+    "label": "Afficher : top montages",
+    "value": true,
+    "group": "Panneaux"
+  },
+  "showStats": {
+    "type": "checkbox",
+    "label": "Afficher : statistiques",
+    "value": true,
+    "group": "Panneaux"
+  },
+  "showSocials": {
+    "type": "checkbox",
+    "label": "Afficher : réseaux",
+    "value": true,
+    "group": "Panneaux"
+  },
+  "showCode": {
+    "type": "checkbox",
+    "label": "Afficher : code créateur",
+    "value": true,
+    "group": "Panneaux"
+  },
+  "testPanel": {
+    "type": "dropdown",
+    "label": "Mode (fixe = pour placer le bandeau)",
+    "value": "cycle",
+    "options": {
+      "cycle": "Défilement automatique",
+      "videos": "Fixe : top montages",
+      "stats": "Fixe : statistiques",
+      "socials": "Fixe : réseaux",
+      "code": "Fixe : code créateur"
+    },
+    "group": "Panneaux"
+  },
+  "displaySeconds": {
+    "type": "number",
+    "label": "Durée d'affichage d'un panneau (secondes)",
+    "value": 12,
+    "min": 4,
+    "max": 120,
+    "step": 1,
+    "group": "Timing"
+  },
+  "gapSeconds": {
+    "type": "number",
+    "label": "Pause entre deux panneaux (secondes)",
+    "value": 25,
+    "min": 0,
+    "max": 600,
+    "step": 1,
+    "group": "Timing"
+  },
+  "refreshMinutes": {
+    "type": "number",
+    "label": "Actualiser les stats toutes les (minutes)",
+    "value": 5,
+    "min": 1,
+    "max": 60,
+    "step": 1,
+    "group": "Timing"
+  },
+  "position": {
+    "type": "dropdown",
+    "label": "Position du bandeau dans le widget",
+    "value": "bottom",
+    "options": {
+      "bottom": "En bas",
+      "center": "Au milieu",
+      "top": "En haut"
+    },
+    "group": "Apparence"
+  },
+  "chatCommands": {
+    "type": "checkbox",
+    "label": "Commandes chat (!code !reseaux !stats !montages, modos et toi)",
+    "value": true,
+    "group": "Chat"
+  },
+  "bannerWidth": {
+    "type": "number",
+    "label": "Largeur du bandeau (px)",
+    "value": 1500,
+    "min": 900,
+    "max": 1920,
+    "step": 10,
+    "group": "Apparence"
+  },
+  "offset": {
+    "type": "number",
+    "label": "Marge depuis le bord (px)",
+    "value": 60,
+    "min": 0,
+    "max": 400,
+    "step": 5,
+    "group": "Apparence"
+  }
+}

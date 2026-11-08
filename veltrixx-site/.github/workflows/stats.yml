@@ -1,0 +1,45 @@
+# Met à jour les statistiques du site toutes les 10 minutes.
+# Nécessite le secret YT_API_KEY (Settings > Secrets and variables > Actions).
+name: Stats en direct
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Installer le navigateur (pour lire les profils TikTok)
+        run: |
+          npm install --no-save playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Relever les chiffres
+        run: node scripts/update-stats.mjs
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+      - name: Enregistrer s'il y a du nouveau
+        run: |
+          git config user.name "veltrixx-stats"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/stats.json assets/stats-seed.js
+          if git diff --cached --quiet; then
+            echo "Aucun changement."
+          else
+            git commit -m "Stats : nouvelle donnée"
+            git pull --rebase
+            git push
+          fi

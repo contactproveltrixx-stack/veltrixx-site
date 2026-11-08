@@ -1,0 +1,17 @@
+PHOTOS DE PROFIL DES CRÉATEURS
+==============================
+Dépose ici les photos de profil (carrées, format .jpg) avec EXACTEMENT ces noms :
+
+  lyost.jpg     -> Lyost Esport
+  leo.jpg       -> Leothecrack
+  akiira.jpg    -> Akiira
+  skyjump.jpg   -> SkyJump
+  werex.jpg     -> Werex
+  kurama.jpg    -> Kurama
+  podasai.jpg   -> Podasai
+  laizen.jpg    -> Laizen
+
+Elles apparaissent automatiquement partout : carrousel "Ils m'ont fait confiance",
+cartes de collaboration, vignettes des montages et graphiques de stats.
+Tant qu'une image manque, la première lettre du nom s'affiche à la place.
+Taille conseillée : 200 x 200 pixels.

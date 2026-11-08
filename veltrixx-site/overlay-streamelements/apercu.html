@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Aperçu overlay Veltrixx</title>
+<link rel="stylesheet" href="2-CSS.css">
+<style>html,body{background:#1b1f27 !important}body{min-height:100vh}.note{position:fixed;top:12px;left:12px;font:600 13px system-ui;color:#9aa;max-width:320px}</style>
+</head><body>
+<p class="note">Aperçu local de l'overlay. Ajoute <b>?panel=stats</b> (ou videos, socials, code) à l'adresse pour figer un panneau.</p>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800;1,900&family=Manrope:wght@500;600;700;800&display=swap">
+
+<div class="stage" id="stage">
+  <article class="card" id="card" aria-live="polite"></article>
+</div>
+
+<script src="3-JS.js"></script>
+<script>
+  // Simule StreamElements : envoie les réglages par défaut au widget
+  var f = {"siteUrl": "", "lang": "fr", "creatorCode": "VELTRIXXVFX", "showVideos": true, "showStats": true, "showSocials": true, "showCode": true, "testPanel": "cycle", "displaySeconds": 12, "gapSeconds": 25, "refreshMinutes": 5, "position": "bottom", "chatCommands": true, "bannerWidth": 1500, "offset": 60};
+  if (location.protocol.indexOf('http') === 0) f.siteUrl = location.origin;
+  var q = new URLSearchParams(location.search).get('panel'); if (q) f.testPanel = q;
+  f.gapSeconds = 3;
+  window.dispatchEvent(new CustomEvent('onWidgetLoad', { detail: { fieldData: f } }));
+</script>
+</body></html>
