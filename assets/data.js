@@ -26,7 +26,10 @@ const ME = {
    Pour changer une date ou un compte, modifie aussi scripts/update-stats.mjs (même valeurs). */
 /* Comptes, avis et messagerie (Supabase). L'adresse et la clé « anon » sont publiques : elles sont faites pour être dans le site,
    la sécurité est assurée par les règles de la base de données (supabase/schema.sql). Vide = comptes désactivés. */
-const SUPABASE = { url: "", anonKey: "" };
+const SUPABASE = {
+  url: "https://otiqvytpmlqvchxizwns.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90aXF2eXRwbWxxdmNoeGl6d25zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxNjUwMzQsImV4cCI6MjEwOTc0MTAzNH0.T99lAFch6wcxL2OwuX3wokbgv3k10tNNblEmZ2ZObkA"
+};
 
 const LIVE = {
   youtube: { akiira: "UCKWNLyvbV-vt6fM5q_E-igw", skyjump: "UCcifpfOD-8hCO9vbMoN41Nw", werex: "UCvQDDvqFF0A0ZQvdCW2irzQ", leo: "UCu7zXI2tMumbrjmBgJIfPBA" },

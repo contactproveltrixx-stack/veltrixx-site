@@ -184,6 +184,17 @@ revoke all on function public.admin_threads() from anon;
 revoke all on function public.admin_stats() from anon;
 revoke all on function public.delete_my_account() from anon;
 
+-- ---------- Droits d'accès de l'API (les règles RLS ci-dessus filtrent ensuite ligne par ligne) ----------
+grant usage on schema public to anon, authenticated;
+grant select on public.profiles, public.reviews to anon;
+grant select, update on public.profiles to authenticated;
+grant select on public.admins to authenticated;
+grant select, insert, update, delete on public.reviews to authenticated;
+grant select, insert, update, delete on public.messages to authenticated;
+grant usage, select on sequence public.messages_id_seq to authenticated;
+grant execute on function public.is_admin() to anon, authenticated;
+grant execute on function public.admin_threads(), public.admin_stats(), public.delete_my_account() to authenticated;
+
 -- ---------- Temps réel pour le chat ----------
 do $$ begin
   alter publication supabase_realtime add table public.messages;
