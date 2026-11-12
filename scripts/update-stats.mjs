@@ -166,16 +166,26 @@ async function tiktokAll() {
   await browser.close();
   return out;
 }
+// Fusionne deux listes [date de publication, vues] : même vidéo = même date à une minute près.
+function mergeVideos(oldList, fresh) {
+  const out = oldList.map(x => [x[0], x[1]]);
+  for (const [t, v] of fresh) {
+    const hit = out.find(x => Math.abs(x[0] - t) <= 60);
+    if (hit) hit[1] = Math.max(hit[1], v); else out.push([t, v]);
+  }
+  return out.sort((a, b) => a[0] - b[0]);
+}
 const tk = ONLY === 'youtube' ? (console.log('TikTok : ignoré (robot YouTube).'), null) : await tiktokAll().catch(e => { console.log('TikTok : erreur', e.stack || e.message); return null; });
 if (tk && Object.keys(tk).length) {
   const last = stats.tiktok.live.at(-1) || { views: {}, followers: {}, likes: {} };
   const views = { ...last.views }, followers = { ...last.followers }, likes = { ...last.likes };
   for (const [name, r] of Object.entries(tk)) {
-    const prev = stats.tiktok.videos[name]?.length || 0;
-    // si TikTok n'a renvoyé qu'une partie de la liste, on garde l'ancienne
-    if (r.list.length && r.list.length >= prev * 0.9) {
-      stats.tiktok.videos[name] = r.list;
-      views[name] = r.list.reduce((a, x) => a + x[1], 0);
+    // TikTok ne renvoie souvent qu'une partie de la liste : on met à jour les vidéos lues
+    // et on garde les autres telles qu'elles étaient (une vidéo n'est jamais retirée).
+    if (r.list.length) {
+      const merged = mergeVideos(stats.tiktok.videos[name] || [], r.list);
+      stats.tiktok.videos[name] = merged;
+      views[name] = merged.reduce((a, x) => a + x[1], 0);
     }
     if (r.profile) { followers[name] = r.profile.followers; likes[name] = r.profile.likes; }
   }
