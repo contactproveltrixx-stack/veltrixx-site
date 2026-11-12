@@ -96,21 +96,36 @@ else {
 // Ouvre chaque profil dans un vrai navigateur (Playwright) et lit la liste des vidéos que TikTok
 // envoie à la page, comme quand on fait défiler un profil.
 async function tiktokAll() {
+  // Google Chrome se met à jour tout seul ; une vieille version de Playwright peut alors ne plus réussir à l'ouvrir
+  // (c'est ce qui est arrivé le 12/11 avec Chrome 157). Sur le PC, on installe donc d'abord la dernière version.
+  if (process.platform === 'win32') {
+    try {
+      const { execSync } = await import('node:child_process');
+      execSync('npm install --no-save --no-audit --no-fund playwright@latest', { stdio: 'ignore', timeout: 180000, env: { ...process.env, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1' } });
+    } catch (e) { console.log('Mise à jour de Playwright impossible :', e.message.split('\n')[0]); }
+  }
   let chromium;
   try { ({ chromium } = await import('playwright')); }
   catch { console.log('Playwright absent : TikTok ignoré.'); return null; }
-  // Sur le PC Windows, on utilise Microsoft Edge (déjà installé) ; sinon le Chromium de Playwright.
+  try { console.log('Playwright', JSON.parse(await readFile(new URL('../node_modules/playwright/package.json', import.meta.url), 'utf8')).version); } catch {}
+  // Sur le PC : ton Google Chrome, invisible. Edge n'est jamais utilisé.
   let browser;
-  // Sur le PC : ton Google Chrome (en mode invisible). Edge n'est jamais utilisé.
   const args = ['--disable-blink-features=AutomationControlled'];
-  if (process.platform === 'win32') for (const channel of ['chrome']) {
-    if (browser) break;
-    browser = await chromium.launch({ channel, args }).catch(e => { console.log(channel + ' indisponible :', e.message.split('\n')[0]); return null; });
-    if (browser) console.log('Navigateur :', channel);
+  if (process.platform === 'win32') {
+    const tries = [
+      { channel: 'chrome', args },
+      // plan B : Chrome lancé « visible » pour Playwright mais en mode invisible pour Windows
+      { channel: 'chrome', headless: false, args: [...args, '--headless=new'] }
+    ];
+    for (const o of tries) {
+      if (browser) break;
+      browser = await chromium.launch(o).catch(e => { console.log('chrome indisponible :', e.message.split('\n')[0]); return null; });
+      if (browser) console.log('Navigateur : chrome', browser.version());
+    }
   }
   if (!browser) browser = await chromium.launch().catch(e => { console.log('Chromium absent :', e.message.split('\n')[0]); return null; });
   if (!browser) {
-    // Première fois sur ce PC : on télécharge le navigateur de Playwright (une seule fois, ~150 Mo).
+    if (process.platform === 'win32') { console.log('Aucun navigateur utilisable : TikTok non relevé.'); return null; }
     console.log('Téléchargement du navigateur…');
     const { execSync } = await import('node:child_process');
     execSync('npx playwright install chromium', { stdio: 'inherit', env: { ...process.env, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '' } });
@@ -133,7 +148,8 @@ async function tiktokAll() {
       if (raw) { const st = JSON.parse(raw).__DEFAULT_SCOPE__?.['webapp.user-detail']?.userInfo?.stats; if (st) profile = { followers: Number(st.followerCount), likes: Number(st.heartCount ?? st.heart) }; }
       const cutoff = ts(SINCE.tiktok[name]);
       let still = 0, last = -1;
-      for (let i = 0; i < 80 && more; i++) {
+      const until = Date.now() + 150000; // 2 min 30 maximum par profil
+      for (let i = 0; i < 80 && more && Date.now() < until; i++) {
         const retry = page.getByRole('button', { name: /Actualiser|Refresh/i });
         if (await retry.count()) await retry.first().click().catch(() => {});
         await page.mouse.wheel(0, 4000);
