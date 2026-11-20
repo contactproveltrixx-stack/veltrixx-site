@@ -9,12 +9,27 @@
 
 import { readFile, writeFile } from 'node:fs/promises';
 
-const YOUTUBE = { akiira: 'UCKWNLyvbV-vt6fM5q_E-igw', skyjump: 'UCcifpfOD-8hCO9vbMoN41Nw', werex: 'UCvQDDvqFF0A0ZQvdCW2irzQ', leo: 'UCu7zXI2tMumbrjmBgJIfPBA' };
-const TIKTOK = { akiira: 'akiiraftn', werex: 'werexfn', skyjump: 'skyjumpftnn' };
-const SINCE = {
+// Chaînes suivies : lues dans assets/data.js (bloc « live », modifiable depuis les Paramètres du site).
+// Les valeurs ci-dessous ne servent que si ce bloc est illisible.
+let YOUTUBE = { akiira: 'UCKWNLyvbV-vt6fM5q_E-igw', skyjump: 'UCcifpfOD-8hCO9vbMoN41Nw', werex: 'UCvQDDvqFF0A0ZQvdCW2irzQ', leo: 'UCu7zXI2tMumbrjmBgJIfPBA' };
+let TIKTOK = { akiira: 'akiiraftn', werex: 'werexfn', skyjump: 'skyjumpftnn' };
+let SINCE = {
   youtube: { werex: '2026-03-28', akiira: '2026-06-11', skyjump: '2026-06-11', leo: '2026-08-12' },
   tiktok:  { werex: '2026-03-28', akiira: '2026-06-11', skyjump: '2026-06-11' }
 };
+try {
+  const { createRequire } = await import('node:module');
+  const SiteForm = createRequire(import.meta.url)('../assets/settings-form.js');
+  const live = SiteForm.parse(await readFile(new URL('../assets/data.js', import.meta.url), 'utf8')).live || {};
+  const since = live.since || {};
+  const only = o => Object.fromEntries(Object.entries(o || {}).filter(([k, v]) => v && since[k]));
+  const ytMap = only(live.youtube), ttMap = only(live.tiktok);
+  const dates = keys => Object.fromEntries(keys.map(k => [k, since[k]]));
+  if (Object.keys(ytMap).length || Object.keys(ttMap).length) {
+    YOUTUBE = ytMap; TIKTOK = ttMap;
+    SINCE = { youtube: dates(Object.keys(ytMap)), tiktok: dates(Object.keys(ttMap)) };
+  }
+} catch (e) { console.log('Paramètres « live » illisibles, valeurs par défaut :', e.message); }
 const FILE = new URL('../data/stats.json', import.meta.url);
 const SEED = new URL('../assets/stats-seed.js', import.meta.url);
 const MAX_LIVE = 6000;
