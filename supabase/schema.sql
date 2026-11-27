@@ -195,6 +195,35 @@ grant usage, select on sequence public.messages_id_seq to authenticated;
 grant execute on function public.is_admin() to anon, authenticated;
 grant execute on function public.admin_threads(), public.admin_stats(), public.delete_my_account() to authenticated;
 
+-- ---------- Paramètres du site (onglet Paramètres du panneau admin) ----------
+-- L'admin enregistre ici ; le robot GitHub (scripts/apply-settings.mjs) recopie dans assets/data.js.
+-- Lisible par tous : ce sont les infos publiques du site.
+create table if not exists public.site_settings (
+  id         int primary key default 1 check (id = 1),
+  data       jsonb not null,
+  updated_at timestamptz not null default now(),
+  updated_by uuid references auth.users(id) on delete set null
+);
+create or replace function public.site_settings_stamp() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  new.updated_at := now();
+  new.updated_by := auth.uid();
+  return new;
+end $$;
+drop trigger if exists site_settings_stamp on public.site_settings;
+create trigger site_settings_stamp before insert or update on public.site_settings
+  for each row execute function public.site_settings_stamp();
+alter table public.site_settings enable row level security;
+drop policy if exists "paramètres lisibles" on public.site_settings;
+create policy "paramètres lisibles" on public.site_settings for select using (true);
+drop policy if exists "admin crée les paramètres" on public.site_settings;
+create policy "admin crée les paramètres" on public.site_settings for insert with check (public.is_admin());
+drop policy if exists "admin modifie les paramètres" on public.site_settings;
+create policy "admin modifie les paramètres" on public.site_settings for update using (public.is_admin()) with check (public.is_admin());
+grant select on public.site_settings to anon, authenticated;
+grant insert, update on public.site_settings to authenticated;
+
 -- ---------- Temps réel pour le chat ----------
 do $$ begin
   alter publication supabase_realtime add table public.messages;

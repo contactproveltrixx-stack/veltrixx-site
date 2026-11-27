@@ -4,12 +4,19 @@
 // On repart toujours de la dernière version en ligne et on ne remplace que la partie de ce robot :
 // les deux robots peuvent donc tourner en même temps sans s'écraser.
 import { readFile } from 'node:fs/promises';
+import { applySettings } from './apply-settings.mjs';
 
 const PART = process.argv[2];
 const REPO = process.env.GITHUB_REPOSITORY;
 const TOKEN = process.env.GITHUB_TOKEN;
 const BRANCH = process.env.GITHUB_REF_NAME || 'main';
 if (!['youtube', 'tiktok'].includes(PART) || !REPO || !TOKEN) { console.log('Usage : node scripts/save-stats.mjs youtube|tiktok (dans GitHub Actions)'); process.exit(1); }
+
+// Paramètres du site modifiés depuis le panneau admin : recopiés dans assets/data.js (robot YouTube seulement)
+if (PART === 'youtube') {
+  try { console.log('Paramètres :', await applySettings({ repo: REPO, token: TOKEN, branch: BRANCH })); }
+  catch (e) { console.log('Paramètres : erreur', e.message); }
+}
 
 const local = JSON.parse(await readFile(new URL('../data/stats.json', import.meta.url), 'utf8'));
 const api = async (path, opts = {}) => {

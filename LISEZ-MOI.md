@@ -20,10 +20,14 @@ Il ajoute un point au graphique seulement quand un chiffre a changé.
 YouTube : vues de toutes les vidéos publiées depuis ton arrivée (Werex 28/03, Akiira et SkyJump 11/06, Leo 12/08) + abonnés.
 TikTok : le robot ouvre les profils publics d'Akiira, Werex et SkyJump dans un navigateur et additionne les vues des vidéos publiées depuis ces mêmes dates.
 Si TikTok bloque une visite, le site garde simplement les derniers chiffres connus.
-Pour changer une date : modifie SINCE en haut de scripts/update-stats.mjs.
+Pour changer une date ou une chaîne suivie : Paramètres du site → Statistiques en direct.
 
 ## 3. Ce que tu peux modifier
-- `assets/data.js` : tes infos, vidéos, créateurs, ID Discord.
+- **Paramètres du site** (infos, vidéos, créateurs, listes, avis, chaînes suivies) sans toucher au code :
+  - dans SaaS Veltrixx : Mon site → Paramètres du site → Publier (en ligne en une minute environ) ;
+  - sur le site : panneau admin (admin.html) → onglet Paramètres du site → Enregistrer
+    (le robot « Stats en direct » les recopie dans `assets/data.js` dans les 10 minutes).
+- `assets/data.js` : le même contenu à la main (bloc JSON entre DEBUT-PARAMETRES et FIN-PARAMETRES).
 - `assets/pp/` : photos de profil des créateurs (voir LISEZ-MOI.txt dedans).
 - `assets/site.js` : traductions anglaises (en haut du fichier).
 - Formulaire : la première demande envoyée déclenche un mail de FormSubmit, clique sur « Activate Form ».
