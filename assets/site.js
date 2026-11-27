@@ -11,7 +11,7 @@
     'footer.role': 'Video editor & Channel Manager',
 
     'home.status': 'Available for new projects',
-    'home.h1': 'Video editor<br><span class="b">Veltrixx</span>',
+    'home.h1': 'Video editor <span class="b">Veltrixx</span>',
     'home.lead': 'Editor and Channel Manager for Fortnite creators and pros: Leothecrack, Akiira, SkyJump, Werex, Kurama and Lyost Esport.',
     'home.cta1': 'See my edits', 'home.cta2': 'Work with me',
     'home.s1': 'views generated (YouTube + TikTok)', 'home.s2': 'TikTok views since I joined', 'home.s5': 'YouTube views since I joined', 'home.s6': 'creators and orgs', 'home.s3': 'edits on show', 'home.s4': 'total views across managed accounts',
@@ -20,7 +20,7 @@
     'home.all': 'See all edits',
     'home.trust': 'They <span class="b">trusted me</span>', 'home.trustk': 'Creators and orgs I have edited for',
     'home.collabsbtn': 'See my collabs',
-    'home.ctah': 'Ready to <span class="b">blow up</span> your views?', 'home.ctal': 'Editing, thumbnails, YouTube channel and TikTok management. Tell me about your project.',
+    'home.ctah': 'Tell me about your <span class="b">channel</span>', 'home.ctal': 'Editing, thumbnails, YouTube channel and TikTok management. I reply within 24 hours.',
 
     'ed.h1': 'My <span class="b">edits</span>', 'ed.lead': 'Five edits for each channel I work on. Click a video to watch it here.',
     'ed.filter': 'Channel', 'ed.note': 'Views and likes as of 8 November 2026. Source: YouTube.',
@@ -61,15 +61,15 @@
     'ct.name': 'Name or handle', 'ct.email': 'Your email', 'ct.type': 'Type of request', 'ct.budget': 'Budget', 'ct.deadline': 'Deadline', 'ct.link': 'Link to your channel', 'ct.msg': 'Your message',
     'ct.t1': 'YouTube edit', 'ct.t2': 'Short / TikTok / Reel', 'ct.t3': 'Channel Manager', 'ct.t4': 'TikTok management', 'ct.t5': 'Collab / partnership', 'ct.t6': 'Other',
     'ct.b0': 'To discuss', 'ct.send': 'Send request', 'ct.direct': 'Email me directly', 'ct.social': 'My socials', 'ct.business': 'Business contact',
-    'rv.see': 'See reviews', 'acc.h1': 'My <span class="b">account</span>', 'acc.lead': 'Sign in to chat with me live and leave your review.', 'msg.h1': 'My <span class="b">messages</span>', 'rv.h1': 'The <span class="b">reviews</span>', 'rv.lead': 'What creators and teams say about working with me. Worked together? Leave yours!', 'rv.h': 'What they <span class="b">say</span>', 'rv.k': 'Reviews from creators I\'ve worked with', 'rv.btn': 'Leave a review', 'rv.boxh': 'Worked together already?',
+    'rv.see': 'See reviews', 'acc.h1': 'My <span class="b">account</span>', 'acc.lead': 'Sign in to chat with me live and leave your review.', 'msg.h1': 'My <span class="b">messages</span>', 'rv.h1': 'The <span class="b">reviews</span>', 'rv.lead': 'What creators and teams say about working with me. Worked together? Leave yours.', 'rv.h': 'What they <span class="b">say</span>', 'rv.k': 'Reviews from creators I\'ve worked with', 'rv.btn': 'Leave a review', 'rv.boxh': 'Worked together already?',
     'rv.dh': 'Leave a <span class="b">review</span>', 'rv.dl': 'Your review is published on the site once approved.', 'rv.dl2': 'Your review shows up on the site right away.', 'rv.rating': 'Your rating', 'rv.name': 'Name or handle', 'rv.role': 'Who are you? (optional)',
     'rv.link': 'Your channel (optional)', 'rv.email': 'Your email (optional, not published)', 'rv.text': 'Your review', 'rv.send': 'Send my review', 'rv.cancel': 'Cancel',
     'rv.phrole': 'e.g. YouTube creator, esports team…', 'rv.phtext': 'How was working together? Editing, deadlines, results…',
     'ct.phname': 'e.g. Leo', 'ct.phmsg': 'Type of video, length, references, publishing date…', 'ct.phdeadline': 'e.g. in 1 week'
   };
   var UI = {
-    fr: { views: 'vues', onYt: 'Voir sur YouTube', close: 'Fermer', copied: 'Copié !', discordCopied: 'Pseudo Discord copié : ', more: 'Voir la page', sending: 'Envoi…', ok: 'Merci ! Ta demande est bien partie, je te réponds vite.', err: 'L’envoi n’a pas marché. Écris-moi directement à ', required: 'Remplis ton nom, ton email et ton message.', badEmail: 'Ton adresse email ne semble pas valide.', all: 'Tout', video: 'vidéo', videos: 'vidéos', channel: 'Voir la chaîne', lastData: 'Dernière donnée', newData: 'Nouvelle donnée reçue', growing: 'Le graphique se remplit à chaque nouvelle donnée.', total: 'Total', likesW: 'J’aime', followersW: 'abonnés', viewsSince: 'vues depuis mon arrivée', subsNow: 'abonnés', subsGained: 'abonnés gagnés depuis mon arrivée', rvNone: 'Pas encore d’avis publié : sois le premier à en laisser un !', rvCount: '{n} avis', rvOk: 'Merci ! Ton avis est bien parti, il sera publié après validation.', rvOkLive: 'Merci ! Ton avis est en ligne.', rvWait: 'Trop d’avis en même temps : réessaie dans quelques secondes.', rvNeed: 'Choisis une note, ton nom et écris ton avis.', rvStars: '{n} sur 5', likesProfile: 'J’aime sur les profils', genBy: 'Qui a fait le plus de vues', since: 'depuis le premier relevé', justNow: 'à l’instant', minAgo: 'il y a {n} min', hAgo: 'il y a {n} h', dAgo: 'il y a {n} j' },
-    en: { views: 'views', onYt: 'Watch on YouTube', close: 'Close', copied: 'Copied!', discordCopied: 'Discord username copied: ', more: 'Open page', sending: 'Sending…', ok: 'Thanks! Your request was sent, I’ll get back to you soon.', err: 'Sending failed. Email me directly at ', required: 'Please fill in your name, email and message.', badEmail: 'That email address doesn’t look valid.', all: 'All', video: 'video', videos: 'videos', channel: 'Open channel', lastData: 'Latest data', newData: 'New data received', growing: 'The chart fills in with every new data point.', total: 'Total', likesW: 'likes', followersW: 'followers', viewsSince: 'views since I joined', subsNow: 'subscribers', subsGained: 'subscribers gained since I joined', rvNone: 'No reviews published yet: be the first to leave one!', rvCount: '{n} reviews', rvOk: 'Thanks! Your review was sent and will be published once approved.', rvOkLive: 'Thanks! Your review is live.', rvWait: 'Too many reviews at once: try again in a few seconds.', rvNeed: 'Pick a rating, add your name and write your review.', rvStars: '{n} out of 5', likesProfile: 'profile likes', genBy: 'Who brought in the most views', since: 'since the first reading', justNow: 'just now', minAgo: '{n} min ago', hAgo: '{n} h ago', dAgo: '{n} d ago' }
+    fr: { views: 'vues', onYt: 'Voir sur YouTube', close: 'Fermer', copied: 'Copié', discordCopied: 'Pseudo Discord copié : ', more: 'Voir la page', sending: 'Envoi…', ok: 'Merci, ta demande est bien partie, je te réponds vite.', err: 'L’envoi n’a pas marché. Écris-moi directement à ', required: 'Remplis ton nom, ton email et ton message.', badEmail: 'Ton adresse email ne semble pas valide.', all: 'Tout', video: 'vidéo', videos: 'vidéos', channel: 'Voir la chaîne', lastData: 'Dernière donnée', newData: 'Nouvelle donnée reçue', growing: 'Le graphique se remplit à chaque nouvelle donnée.', total: 'Total', likesW: 'J’aime', followersW: 'abonnés', viewsSince: 'vues depuis mon arrivée', subsNow: 'abonnés', subsGained: 'abonnés gagnés depuis mon arrivée', rvNone: 'Pas encore d’avis publié : sois le premier à en laisser un !', rvCount: '{n} avis', rvOk: 'Merci ! Ton avis est bien parti, il sera publié après validation.', rvOkLive: 'Merci ! Ton avis est en ligne.', rvWait: 'Trop d’avis en même temps : réessaie dans quelques secondes.', rvNeed: 'Choisis une note, ton nom et écris ton avis.', rvStars: '{n} sur 5', likesProfile: 'J’aime sur les profils', genBy: 'Qui a fait le plus de vues', since: 'depuis le premier relevé', justNow: 'à l’instant', minAgo: 'il y a {n} min', hAgo: 'il y a {n} h', dAgo: 'il y a {n} j' },
+    en: { views: 'views', onYt: 'Watch on YouTube', close: 'Close', copied: 'Copied', discordCopied: 'Discord username copied: ', more: 'Open page', sending: 'Sending…', ok: 'Thanks, your request was sent, I’ll get back to you soon.', err: 'Sending failed. Email me directly at ', required: 'Please fill in your name, email and message.', badEmail: 'That email address doesn’t look valid.', all: 'All', video: 'video', videos: 'videos', channel: 'Open channel', lastData: 'Latest data', newData: 'New data received', growing: 'The chart fills in with every new data point.', total: 'Total', likesW: 'likes', followersW: 'followers', viewsSince: 'views since I joined', subsNow: 'subscribers', subsGained: 'subscribers gained since I joined', rvNone: 'No reviews published yet: be the first to leave one!', rvCount: '{n} reviews', rvOk: 'Thanks! Your review was sent and will be published once approved.', rvOkLive: 'Thanks! Your review is live.', rvWait: 'Too many reviews at once: try again in a few seconds.', rvNeed: 'Pick a rating, add your name and write your review.', rvStars: '{n} out of 5', likesProfile: 'profile likes', genBy: 'Who brought in the most views', since: 'since the first reading', justNow: 'just now', minAgo: '{n} min ago', hAgo: '{n} h ago', dAgo: '{n} d ago' }
   };
 
   var lang = 'fr';
@@ -143,7 +143,7 @@
     '<div class="wrap">' +
       '<a class="logo" href="index.html"><span class="me-pp"><img src="' + ME.pp + '" alt="" onerror="this.parentNode.classList.add(\'nopp\');this.remove()"><b>V</b></span>Veltrixx</a>' +
       '<nav class="nav" id="nav" aria-label="Navigation">' +
-        NAV.map(function (n) { return '<a href="' + n[1] + '"' + (n[0] === 'lyost' ? ' class="gold-link"' : '') + (n[0] === page ? ' aria-current="page"' : '') + ' data-i18n="' + n[2] + '">' + n[3] + '</a>'; }).join('') +
+        NAV.map(function (n) { return '<a href="' + n[1] + '"' + (n[0] === page ? ' aria-current="page"' : '') + ' data-i18n="' + n[2] + '">' + n[3] + '</a>'; }).join('') +
       '</nav>' +
       '<div class="tools">' +
         '<div class="lang" role="group" aria-label="Langue / Language"><button type="button" data-lang="fr">FR</button><button type="button" data-lang="en">EN</button></div>' +
@@ -152,8 +152,6 @@
       '</div>' +
     '</div>';
   document.body.prepend(header);
-  var aur = document.createElement('div'); aur.className = 'aurora'; aur.setAttribute('aria-hidden', 'true'); aur.innerHTML = '<i></i><i></i><i></i>';
-  document.body.prepend(aur);
 
   var footer = document.createElement('footer');
   footer.innerHTML =
@@ -228,7 +226,7 @@
       '<div class="role">' + esc(c.role[L]) + '</div>' +
       (c.stats ? '<div class="nums">' + c.stats.map(function (s) { return '<span><b>' + s[0] + '</b>' + s[1] + '</span>'; }).join('') + '</div>' : '') +
       '<div class="socials">' + socialLinks(c.links) + '</div>' +
-      (c.page ? '<a class="btn btn-gold btn-sm more" href="' + c.page + '">' + u('more') + ' ' + I.bolt + '</a>' : '');
+      (c.page ? '<a class="btn btn-ghost btn-sm more" href="' + c.page + '">' + u('more') + '</a>' : '');
     return el;
   }
   function clientItem(key) {
@@ -308,6 +306,21 @@
     pts.byCh = cur; pts.gain = !!hist;
     return pts;
   }
+  /* Un chiffre qui monte jusqu'à sa valeur quand on arrive dessus */
+  function tween(el, to, fmt) {
+    var go = function () {
+      var t0 = performance.now(), d = 1100;
+      (function step(t) {
+        var p = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - p, 4);
+        el.textContent = fmt(Math.round(to * e));
+        if (p < 1) requestAnimationFrame(step);
+      })(t0);
+    };
+    if (!('IntersectionObserver' in window)) return go();
+    el.textContent = fmt(0);
+    var o = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { o.disconnect(); go(); } });
+    o.observe(el);
+  }
   function fmtGen(n) { // ex. 5,9 M — une décimale, comme demandé
     n = Number(n);
     if (n >= 1e6) { var s = (Math.round(n / 1e5) / 10).toFixed(1); return (lang === 'en' ? s : s.replace('.', ',')) + (lang === 'en' ? 'M' : ' M'); }
@@ -366,6 +379,8 @@
       (single ? '<p class="chart-hint">' + u('growing') + '</p>' : '') +
       '<div class="tip" hidden></div>';
     var svg = el.querySelector('svg'), tip = el.querySelector('.tip'), cross = svg.querySelector('.cross'), hov = svg.querySelector('.hov');
+    var lnp = svg.querySelector('path.ln');
+    if (lnp && !el.dataset.drawn && !reduce && lnp.getTotalLength) { el.dataset.drawn = '1'; lnp.style.setProperty('--len', Math.ceil(lnp.getTotalLength())); lnp.classList.add('draw'); }
     svg.querySelector('.hit').addEventListener('pointermove', function (e) {
       var r = svg.getBoundingClientRect(), mx = (e.clientX - r.left) * (W / r.width);
       var best = pts[0], bd = Infinity;
@@ -418,8 +433,13 @@
     var plus = gen - prevGen;
     var ytS = ytField === 'views' ? viewsSeries(ytb) : liveSeries(ytb, 'subs');
     var ttS = ttField === 'views' ? viewsSeries(ttb) : liveSeries(ttb, ttField);
+    var first = shownGen == null;
     document.querySelectorAll('[data-live]').forEach(function (e) {
       var k = e.dataset.live;
+      if (first && !reduce && (k === 'gen' || k === 'yt' || k === 'tt')) {
+        var to = k === 'gen' ? gen : k === 'yt' ? (ly ? sumObj(ly.views) : 0) : (lt ? sumObj(lt.views) : 0);
+        tween(e, to, fmtGen); return;
+      }
       if (k === 'gen') e.textContent = fmtGen(gen);
       if (k === 'genFull') e.textContent = nf(gen);
       if (k === 'genPlus') { e.hidden = !(plus > 0); e.textContent = '+' + nf(plus); if (plus > 0 && isNew) { e.classList.remove('pop'); void e.offsetWidth; e.classList.add('pop'); } }
@@ -434,8 +454,8 @@
       if (k === 'ttAgo' && lt) e.textContent = u('lastData') + ' · ' + ago(lt.t);
     });
     shownGen = gen;
-    chart(document.getElementById('ytChart'), ytS, { color: '#3CCBFF', label: 'YouTube', zero: ytField === 'views' || ytS.gain });
-    chart(document.getElementById('ttChart'), ttS, { color: '#9B7BFF', label: 'TikTok', zero: ttField === 'views' || ttS.gain });
+    chart(document.getElementById('ytChart'), ytS, { color: '#EDEDED', label: 'YouTube', zero: ytField === 'views' || ytS.gain });
+    chart(document.getElementById('ttChart'), ttS, { color: '#EDEDED', label: 'TikTok', zero: ttField === 'views' || ttS.gain });
     if (ly) breakdown(document.getElementById('ytBreak'), ytS.gain ? ytS.byCh : ly[ytField]);
     if (lt) breakdown(document.getElementById('ttBreak'), ttS.gain ? ttS.byCh : lt[ttField]);
   }
@@ -608,10 +628,14 @@
   /* Apparition au scroll (les éléments restent visibles sans JS) */
   if (!reduce && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('rise'); io.unobserve(en.target); } });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    document.querySelectorAll('.sec-head, .panel, .cr, .stat, .org .col, .tasks li, .cta-box, .ch-sec').forEach(function (el) {
-      if (el.getBoundingClientRect().top > window.innerHeight) io.observe(el);
+      es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.remove('pre'); en.target.classList.add('rise'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.sec-head, .panel, .cr, .stat, .org .col, .tasks li, .cta-box, .ch-sec, .feat > .vid, .rv, .live-card, .numbers .gen, .marquee, .note, .facts .stat, .people li').forEach(function (el) {
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.92) {
+        var p = el.parentElement, i = p ? Array.prototype.indexOf.call(p.children, el) : 0;
+        if (p && /grid|feat|creators|strip|facts|org|rv-grid|live-grid|people|tasks/.test(p.className + ' ' + p.tagName)) el.style.setProperty('--i', Math.min(i, 6));
+        el.classList.add('pre'); io.observe(el);
+      }
     });
   }
 })();

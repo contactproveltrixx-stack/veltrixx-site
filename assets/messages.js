@@ -5,11 +5,11 @@
   var T = {
     fr: { off: 'La messagerie n’est pas encore activée sur le site.', login: 'Connecte-toi pour écrire à Veltrixx.', loginBtn: 'Se connecter / créer un compte',
       with: 'Veltrixx', withSub: 'Monteur vidéo & Channel Manager · répond en général sous 24 h', ph: 'Écris ton message…',
-      send: 'Envoyer', empty: 'Aucun message pour l’instant. Présente-toi et parle-moi de ton projet !', today: 'Aujourd’hui', yesterday: 'Hier',
+      send: 'Envoyer', empty: 'Aucun message pour l’instant. Présente-toi et parle-moi de ton projet', today: 'Aujourd’hui', yesterday: 'Hier',
       threads: 'Conversations', noThreads: 'Aucune conversation pour l’instant.', pick: 'Choisis une conversation à gauche.', you: 'Toi : ', seen: 'Vu', err: 'Le message n’est pas parti : ', back: '← Conversations', del: 'Supprimer' },
     en: { off: 'Messaging is not enabled on the site yet.', login: 'Sign in to message Veltrixx.', loginBtn: 'Sign in / create an account',
       with: 'Veltrixx', withSub: 'Video editor & Channel Manager · usually replies within 24 h', ph: 'Write your message…',
-      send: 'Send', empty: 'No messages yet. Introduce yourself and tell me about your project!', today: 'Today', yesterday: 'Yesterday',
+      send: 'Send', empty: 'No messages yet. Introduce yourself and tell me about your project', today: 'Today', yesterday: 'Yesterday',
       threads: 'Conversations', noThreads: 'No conversations yet.', pick: 'Pick a conversation on the left.', you: 'You: ', seen: 'Seen', err: 'Message not sent: ', back: '← Conversations', del: 'Delete' }
   };
   function t(k) { return (T[S.lang()] || T.fr)[k]; }

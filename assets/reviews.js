@@ -5,17 +5,17 @@
   var S = window.VXS, VX = window.VX || { configured: false, ready: Promise.resolve() };
   var grid = document.getElementById('reviews'), sum = document.getElementById('rvSum');
   var T = {
-    fr: { none: 'Pas encore d’avis : sois le premier à en laisser un !', count: '{n} avis', stars: '{n} sur 5', h: 'Laisser un <span class="b">avis</span>', hEdit: 'Modifier mon <span class="b">avis</span>',
+    fr: { none: 'Pas encore d’avis : sois le premier à en laisser un', count: '{n} avis', stars: '{n} sur 5', h: 'Laisser un <span class="b">avis</span>', hEdit: 'Modifier mon <span class="b">avis</span>',
       as: 'Publié en tant que', change: 'changer', live: 'Ton avis s’affiche directement sur le site.', rating: 'Ta note', name: 'Nom ou pseudo', role: 'Qui es-tu ? (facultatif)',
       phRole: 'Ex. Créateur YouTube, structure esport…', link: 'Ta chaîne (facultatif)', email: 'Ton email (facultatif, non publié)', text: 'Ton avis',
       phText: 'Comment s’est passée la collaboration ? Montage, délais, résultats…', send: 'Publier mon avis', update: 'Mettre à jour', cancel: 'Annuler', del: 'Supprimer mon avis', sure: 'Sûr ? Clique encore',
-      need: 'Choisis une note et écris ton avis (5 caractères minimum).', needName: 'Choisis une note, ton nom et écris ton avis.', ok: 'Merci ! Ton avis est en ligne.', okUp: 'Avis mis à jour.', deleted: 'Avis supprimé.',
+      need: 'Choisis une note et écris ton avis (5 caractères minimum).', needName: 'Choisis une note, ton nom et écris ton avis.', ok: 'Merci, ton avis est en ligne', okUp: 'Avis mis à jour.', deleted: 'Avis supprimé.',
       wait: 'Trop d’avis en même temps : réessaie dans quelques secondes.', err: 'Ça n’a pas marché : ', hidden: 'Ton avis a été masqué par Veltrixx. Tu peux le modifier ou le supprimer.', mine: 'Ton avis', edit: 'Modifier', sending: 'Envoi…' },
-    en: { none: 'No reviews yet: be the first to leave one!', count: '{n} reviews', stars: '{n} out of 5', h: 'Leave a <span class="b">review</span>', hEdit: 'Edit my <span class="b">review</span>',
+    en: { none: 'No reviews yet: be the first to leave one', count: '{n} reviews', stars: '{n} out of 5', h: 'Leave a <span class="b">review</span>', hEdit: 'Edit my <span class="b">review</span>',
       as: 'Posted as', change: 'change', live: 'Your review shows up on the site right away.', rating: 'Your rating', name: 'Name or handle', role: 'Who are you? (optional)',
       phRole: 'e.g. YouTube creator, esports team…', link: 'Your channel (optional)', email: 'Your email (optional, not published)', text: 'Your review',
       phText: 'How was working together? Editing, deadlines, results…', send: 'Post my review', update: 'Update', cancel: 'Cancel', del: 'Delete my review', sure: 'Sure? Click again',
-      need: 'Pick a rating and write your review (5 characters minimum).', needName: 'Pick a rating, add your name and write your review.', ok: 'Thanks! Your review is live.', okUp: 'Review updated.', deleted: 'Review deleted.',
+      need: 'Pick a rating and write your review (5 characters minimum).', needName: 'Pick a rating, add your name and write your review.', ok: 'Thanks, your review is live', okUp: 'Review updated.', deleted: 'Review deleted.',
       wait: 'Too many reviews at once: try again in a few seconds.', err: 'That didn’t work: ', hidden: 'Your review was hidden by Veltrixx. You can edit or delete it.', mine: 'Your review', edit: 'Edit', sending: 'Sending…' }
   };
   function t(k) { return (T[S.lang()] || T.fr)[k]; }
@@ -92,7 +92,7 @@
       '<div class="form-end"><p class="msg" role="status" hidden></p><span style="display:flex;gap:10px;margin-left:auto;flex-wrap:wrap">' +
       (mine ? '<button class="btn btn-sm adm-del" type="button" data-delete>' + t('del') + '</button>' : '') +
       '<button class="btn btn-ghost" type="button" data-close>' + t('cancel') + '</button>' +
-      '<button class="btn btn-gold" type="submit">' + (mine ? t('update') : t('send')) + ' ★</button></span></div>' +
+      '<button class="btn btn-blue" type="submit">' + (mine ? t('update') : t('send')) + '</button></span></div>' +
       '</div></form>';
   }
   function open() {

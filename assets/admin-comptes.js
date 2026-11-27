@@ -8,7 +8,7 @@
   var reviews = [], stats = {}, filter = 'all';
 
   function gate() {
-    if (!VX.user) { root.innerHTML = '<div class="panel acc-card"><p>Connecte-toi avec ton compte admin.</p><a class="btn btn-gold" href="compte.html?next=admin.html">Se connecter</a></div>'; return false; }
+    if (!VX.user) { root.innerHTML = '<div class="panel acc-card"><p>Connecte-toi avec ton compte admin.</p><a class="btn btn-blue" href="compte.html?next=admin.html">Se connecter</a></div>'; return false; }
     if (!VX.isAdmin) { root.innerHTML = '<div class="panel acc-card"><p class="msg err">Accès réservé à Veltrixx.</p><a class="btn btn-ghost" href="index.html">Retour au site</a></div>'; return false; }
     return true;
   }
